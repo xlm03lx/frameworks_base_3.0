@@ -1797,7 +1797,10 @@ public class LockSettingsService extends ILockSettings.Stub {
         if (storedHash.version == CredentialHash.VERSION_LEGACY) {
             final byte[] hash;
             if (storedHash.type == LockPatternUtils.CREDENTIAL_TYPE_PATTERN) {
-                hash = LockPatternUtils.patternToHash(LockPatternUtils.stringToPattern(credential));
+                final byte lockPatternSize = getLockPatternSize(userId);
+                hash = LockPatternUtils.patternToHash(
+                        LockPatternUtils.stringToPattern(credential, lockPatternSize),
+                        lockPatternSize);
             } else {
                 hash = mLockPatternUtils.legacyPasswordToHash(credential, userId)
                         .getBytes(StandardCharsets.UTF_8);
