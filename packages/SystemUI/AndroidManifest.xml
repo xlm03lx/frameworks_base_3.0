@@ -235,6 +235,9 @@
     <!-- Weather on lockscreen -->
     <uses-permission android:name="com.crdroid.weather.client.READ_WEATHER" />
 
+    <!-- Locale QS -->
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
     <application
         android:name=".SystemUIApplication"
         android:persistent="true"
