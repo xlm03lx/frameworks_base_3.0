@@ -45,6 +45,7 @@ import com.android.systemui.qs.tiles.HotspotTile;
 import com.android.systemui.qs.tiles.HWKeysTile;
 import com.android.systemui.qs.tiles.IntentTile;
 import com.android.systemui.qs.tiles.LiveDisplayTile;
+import com.android.systemui.qs.tiles.LocaleTile;
 import com.android.systemui.qs.tiles.LocationTile;
 import com.android.systemui.qs.tiles.LteTile;
 import com.android.systemui.qs.tiles.NfcTile;
@@ -169,6 +170,8 @@ public class QSFactoryImpl implements QSFactory {
                 return new SoundTile(mHost);
             case "lte":
                 return new LteTile(mHost);
+            case "locale":
+                return new LocaleTile(mHost);
         }
 
         // Intent tiles.
