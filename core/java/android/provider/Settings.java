@@ -5866,6 +5866,17 @@ public final class Settings {
         /** @hide */
         private static final Validator INCREASING_RING_RAMP_UP_TIME_VALIDATOR = ANY_INTEGER_VALIDATOR;
 
+        /**
+         * Select which lockscreen clock style to display
+         * @hide
+         */
+        public static final String LOCKSCREEN_CLOCK_SELECTION = "lockscreen_clock_selection";
+
+        /** @hide */
+        private static final Validator LOCKSCREEN_CLOCK_SELECTION_VALIDATOR =
+               new SettingsValidators.InclusiveIntegerRangeValidator(0, 4);;
+
+
         /***************************
          * AICP System Settings end
          ***************************/
@@ -6078,6 +6089,7 @@ public final class Settings {
             INCREASING_RING,
             INCREASING_RING_START_VOLUME,
             INCREASING_RING_RAMP_UP_TIME,
+            LOCKSCREEN_CLOCK_SELECTION,
             // AICP Settings end
         };
 
@@ -6354,6 +6366,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(INCREASING_RING);
             PRIVATE_SETTINGS.add(INCREASING_RING_START_VOLUME);
             PRIVATE_SETTINGS.add(INCREASING_RING_RAMP_UP_TIME);
+            PRIVATE_SETTINGS.add(LOCKSCREEN_CLOCK_SELECTION);
             // AICP Settings end
         }
 
@@ -6623,6 +6636,7 @@ public final class Settings {
             VALIDATORS.put(INCREASING_RING,INCREASING_RING_VALIDATOR);
             VALIDATORS.put(INCREASING_RING_START_VOLUME, INCREASING_RING_START_VOLUME_VALIDATOR);
             VALIDATORS.put(INCREASING_RING_RAMP_UP_TIME,INCREASING_RING_RAMP_UP_TIME_VALIDATOR);
+            VALIDATORS.put(LOCKSCREEN_CLOCK_SELECTION,LOCKSCREEN_CLOCK_SELECTION_VALIDATOR);
             // AICP Settings end
         }
 
@@ -10569,6 +10583,19 @@ public final class Settings {
          */
         public static final String STATUS_BAR_CLOCK = "status_bar_clock";
 
+         /**
+         * Show or hide clock
+         * 0 - right
+         * 1 - center
+         * 2 - left (default)
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_POSITION = "status_bar_clock_position";
+
+        /** @hide */
+        private static final Validator STATUSBAR_CLOCK_POSITION_VALIDATOR =
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+
         /**
          * AM/PM Style for clock options
          * 0 - Normal AM/PM
@@ -10917,6 +10944,12 @@ public final class Settings {
             VALIDATORS.put(HUSH_GESTURE_USED, HUSH_GESTURE_USED_VALIDATOR);
             VALIDATORS.put(MANUAL_RINGER_TOGGLE_COUNT, MANUAL_RINGER_TOGGLE_COUNT_VALIDATOR);
             VALIDATORS.put(VOLUME_LINK_NOTIFICATION, VOLUME_LINK_NOTIFICATION_VALIDATOR);
+            VALIDATORS.put(STATUSBAR_CLOCK_POSITION, STATUSBAR_CLOCK_POSITION_VALIDATOR);
+            VALIDATORS.put(STATUSBAR_CLOCK_AM_PM_STYLE, STATUSBAR_CLOCK_AM_PM_STYLE_VALIDATOR);
+            VALIDATORS.put(STATUSBAR_CLOCK_DATE_DISPLAY, STATUSBAR_CLOCK_DATE_DISPLAY_VALIDATOR);
+            VALIDATORS.put(STATUSBAR_CLOCK_DATE_STYLE, STATUSBAR_CLOCK_DATE_STYLE_VALIDATOR);
+            VALIDATORS.put(STATUSBAR_CLOCK_DATE_FORMAT, STATUSBAR_CLOCK_DATE_FORMAT_VALIDATOR);
+            VALIDATORS.put(STATUSBAR_CLOCK_DATE_POSITION, STATUSBAR_CLOCK_DATE_POSITION_VALIDATOR);
         }
 
         /**
