@@ -26,8 +26,8 @@
     <string name="accessibility_quick_settings_heads_up_changed_off">Heads up turned off.</string>
     <string name="accessibility_quick_settings_heads_up_changed_on">Heads up turned on.</string>
 
-    <!-- Aicp Extras Tile -->
-    <string name="quick_aicp_extras_label">Aicp Extras</string>
+    <!-- Extras Tile -->
+    <string name="quick_aicp_extras_label" translatable="false">Extras</string>
     <string name="quick_aicp_extras_toast">LOL, you really thought that long click will take you somewhere!!!</string>
 
     <!-- Screenshoot tile -->
