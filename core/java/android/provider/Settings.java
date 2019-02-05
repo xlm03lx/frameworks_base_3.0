@@ -5874,8 +5874,70 @@ public final class Settings {
 
         /** @hide */
         private static final Validator LOCKSCREEN_CLOCK_SELECTION_VALIDATOR =
-               new SettingsValidators.InclusiveIntegerRangeValidator(0, 4);;
+               new SettingsValidators.InclusiveIntegerRangeValidator(0, 4);
 
+       /**
+         * Blur personalization settings
+         * Enable QS background blur
+         * @hide
+         */
+        public static final String BLUR_QUICKSETTINGS_ENABLED = "blur_quicksettings_enabled";
+
+        /** @hide */
+        private static final Validator BLUR_QUICKSETTINGS_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
+
+       /**
+         * Blur personalization settings
+         * QS background blur percentage
+         * @hide
+         */
+        public static final String BLUR_QUICKSETTINGS_PERCENTAGE = "blur_quicksettings_percentage";
+
+        /** @hide */
+        private static final Validator BLUR_QUICKSETTINGS_PERCENTAGE_VALIDATOR =
+               new SettingsValidators.InclusiveIntegerRangeValidator(0, 100);
+
+       /**
+         * MediaScanner behavior on boot.
+         * 0 = enabled
+         * 1 = ask (notification)
+         * 2 = disabled
+         * @hide
+         */
+        public static final String MEDIA_SCANNER_ON_BOOT = "media_scanner_on_boot";
+
+        /** @hide */
+        private static final Validator MEDIA_SCANNER_ON_BOOT_VALIDATOR =
+               new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+
+        /**
+         * Whether to show or hide the running services icon
+         * @hide
+         */
+        public static final String QS_RUNNING_SERVICES_TOGGLE = "qs_running_services_toggle";
+
+        /** @hide */
+        private static final Validator QS_RUNNING_SERVICES_TOGGLE_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Transparent power menu and dialogs
+         * @hide
+         */
+        public static final String TRANSPARENT_POWER_MENU = "transparent_power_menu";
+
+        /** @hide */
+        private static final Validator TRANSPARENT_POWER_MENU_VALIDATOR =
+               new SettingsValidators.InclusiveIntegerRangeValidator(0, 100);
+
+        /**
+         * Dim amount around power/reboot menu dialogs
+         * @hide
+         */
+        public static final String TRANSPARENT_POWER_DIALOG_DIM = "transparent_power_dialog_dim";
+
+        /** @hide */
+        private static final Validator TRANSPARENT_POWER_DIALOG_DIM_VALIDATOR =
+               new SettingsValidators.InclusiveIntegerRangeValidator(0, 100);
 
         /***************************
          * AICP System Settings end
@@ -6090,6 +6152,12 @@ public final class Settings {
             INCREASING_RING_START_VOLUME,
             INCREASING_RING_RAMP_UP_TIME,
             LOCKSCREEN_CLOCK_SELECTION,
+            BLUR_QUICKSETTINGS_ENABLED,
+            BLUR_QUICKSETTINGS_PERCENTAGE,
+            MEDIA_SCANNER_ON_BOOT,
+            QS_RUNNING_SERVICES_TOGGLE,
+            TRANSPARENT_POWER_MENU,
+            TRANSPARENT_POWER_DIALOG_DIM,
             // AICP Settings end
         };
 
@@ -6367,6 +6435,12 @@ public final class Settings {
             PRIVATE_SETTINGS.add(INCREASING_RING_START_VOLUME);
             PRIVATE_SETTINGS.add(INCREASING_RING_RAMP_UP_TIME);
             PRIVATE_SETTINGS.add(LOCKSCREEN_CLOCK_SELECTION);
+            PRIVATE_SETTINGS.add(BLUR_QUICKSETTINGS_ENABLED);
+            PRIVATE_SETTINGS.add(BLUR_QUICKSETTINGS_PERCENTAGE);
+            PRIVATE_SETTINGS.add(MEDIA_SCANNER_ON_BOOT);
+            PRIVATE_SETTINGS.add(QS_RUNNING_SERVICES_TOGGLE);
+            PRIVATE_SETTINGS.add(TRANSPARENT_POWER_MENU);
+            PRIVATE_SETTINGS.add(TRANSPARENT_POWER_DIALOG_DIM);
             // AICP Settings end
         }
 
@@ -6637,6 +6711,12 @@ public final class Settings {
             VALIDATORS.put(INCREASING_RING_START_VOLUME, INCREASING_RING_START_VOLUME_VALIDATOR);
             VALIDATORS.put(INCREASING_RING_RAMP_UP_TIME,INCREASING_RING_RAMP_UP_TIME_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_CLOCK_SELECTION,LOCKSCREEN_CLOCK_SELECTION_VALIDATOR);
+            VALIDATORS.put(BLUR_QUICKSETTINGS_ENABLED,BLUR_QUICKSETTINGS_ENABLED_VALIDATOR);
+            VALIDATORS.put(BLUR_QUICKSETTINGS_PERCENTAGE,BLUR_QUICKSETTINGS_PERCENTAGE_VALIDATOR);
+            VALIDATORS.put(MEDIA_SCANNER_ON_BOOT,MEDIA_SCANNER_ON_BOOT_VALIDATOR);
+            VALIDATORS.put(QS_RUNNING_SERVICES_TOGGLE,QS_RUNNING_SERVICES_TOGGLE_VALIDATOR);
+            VALIDATORS.put(TRANSPARENT_POWER_MENU,TRANSPARENT_POWER_MENU_VALIDATOR);
+            VALIDATORS.put(TRANSPARENT_POWER_DIALOG_DIM,TRANSPARENT_POWER_DIALOG_DIM_VALIDATOR);
             // AICP Settings end
         }
 
