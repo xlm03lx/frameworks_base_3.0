@@ -21,7 +21,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Heads up QS tile -->
     <!-- Aicp Extras Tile -->
-    <string name="quick_aicp_extras_label">Aicp Extras</string>
     <string name="quick_aicp_extras_toast">LOL, Anda benar-benar berpikir bahwa dengan menekan lama akan membawa Anda ke suatu tempat!!!</string>
     <!-- Screenshoot tile -->
     <string name="quick_settings_screenshot_label">Tangkapan layar</string>

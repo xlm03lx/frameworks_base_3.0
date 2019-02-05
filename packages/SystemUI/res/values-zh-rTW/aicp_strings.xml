@@ -21,7 +21,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Heads up QS tile -->
     <!-- Aicp Extras Tile -->
-    <string name="quick_aicp_extras_label">Aicp 額外功能</string>
     <string name="quick_aicp_extras_toast">哈哈哈，真的以為長按有東西可以用！！！</string>
     <!-- Screenshoot tile -->
     <string name="quick_settings_screenshot_label">擷取螢幕畫面</string>

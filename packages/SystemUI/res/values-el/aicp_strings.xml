@@ -21,7 +21,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Heads up QS tile -->
     <!-- Aicp Extras Tile -->
-    <string name="quick_aicp_extras_label">Συμπληρώματα Aicp</string>
     <string name="quick_aicp_extras_toast">LOL, νόμιζες πραγματικά ότι μακρά κλικ θα σας πάρει κάπου!!!</string>
     <!-- Screenshoot tile -->
     <string name="quick_settings_screenshot_label">Στιγμιότυπο οθόνης</string>

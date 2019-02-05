@@ -21,7 +21,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Heads up QS tile -->
     <!-- Aicp Extras Tile -->
-    <string name="quick_aicp_extras_label">AICP Rozšírenia</string>
     <string name="quick_aicp_extras_toast">LOL, naozaj ste si mysleli, že toto dlhé kliknutie vás niekam dostane?</string>
     <!-- Screenshoot tile -->
     <string name="quick_settings_screenshot_label">Snímka obrazovky</string>

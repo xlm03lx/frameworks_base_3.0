@@ -26,7 +26,6 @@
     <string name="accessibility_quick_settings_heads_up_changed_off">Всплывающие уведомления выключены.</string>
     <string name="accessibility_quick_settings_heads_up_changed_on">Всплывающие уведомления включены.</string>
     <!-- Aicp Extras Tile -->
-    <string name="quick_aicp_extras_label">AICP Extras</string>
     <string name="quick_aicp_extras_toast">АХАХАХ, вы действительно думали, что долгое нажатие перенесёт вас куда-то!!!</string>
     <!-- Screenshoot tile -->
     <string name="quick_settings_screenshot_label">Скриншот</string>

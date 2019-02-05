@@ -21,7 +21,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Heads up QS tile -->
     <!-- Aicp Extras Tile -->
-    <string name="quick_aicp_extras_label">Aicp 추가설정</string>
     <string name="quick_aicp_extras_toast">하하, 정말로 길게 누르는 행동이 너를 어디론가 데러다 줄거라고 생각하는거야!!</string>
     <!-- Screenshoot tile -->
     <string name="quick_settings_screenshot_label">스크린샷</string>

@@ -26,7 +26,6 @@
     <string name="accessibility_quick_settings_heads_up_changed_off">Bildirim pencereleri kapatıldı.</string>
     <string name="accessibility_quick_settings_heads_up_changed_on">Bildirim pencereleri açıldı.</string>
     <!-- Aicp Extras Tile -->
-    <string name="quick_aicp_extras_label">Aicp Extras</string>
     <string name="quick_aicp_extras_toast">LOL, gerçekten uzun basmanın bir işe yarayacağına inandın mı!!!</string>
     <!-- Screenshoot tile -->
     <string name="quick_settings_screenshot_label">Ekran görüntüsü</string>

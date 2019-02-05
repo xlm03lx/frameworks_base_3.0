@@ -26,7 +26,6 @@
     <string name="accessibility_quick_settings_heads_up_changed_off">Lebegő értesítés kikapcsolva.</string>
     <string name="accessibility_quick_settings_heads_up_changed_on">Lebegő értesítés bekapcsolva.</string>
     <!-- Aicp Extras Tile -->
-    <string name="quick_aicp_extras_label">AICP Extrák</string>
     <string name="quick_aicp_extras_toast">Hűha, komolyan azt hitted a hosszan kattintás eljuttat téged valahová!!!</string>
     <!-- Screenshoot tile -->
     <string name="quick_settings_screenshot_label">Képernyőmentés</string>

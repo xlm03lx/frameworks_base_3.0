@@ -26,7 +26,6 @@
     <string name="accessibility_quick_settings_heads_up_changed_off">Notificaciones emergentes desactivadas.</string>
     <string name="accessibility_quick_settings_heads_up_changed_on">Notificaciones emergentes activadas.</string>
     <!-- Aicp Extras Tile -->
-    <string name="quick_aicp_extras_label">Aicp Extras</string>
     <string name="quick_aicp_extras_toast">Jajaja, esperabas que la pulsación larga mostrara algo!!!</string>
     <!-- Screenshoot tile -->
     <string name="quick_settings_screenshot_label">Captura de pantalla</string>
