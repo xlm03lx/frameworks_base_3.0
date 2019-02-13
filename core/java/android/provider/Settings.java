@@ -4139,6 +4139,42 @@ public final class Settings {
         */
         public static final String ENABLE_PEOPLE_LOOKUP = "enable_people_lookup";
 
+        /**
+         * Whether to wake the screen with the home key, the value is boolean.
+         * @hide
+         */
+        public static final String HOME_WAKE_SCREEN = "home_wake_screen";
+
+        /**
+         * Whether to wake the screen with the back key, the value is boolean.
+         * @hide
+         */
+        public static final String BACK_WAKE_SCREEN = "back_wake_screen";
+
+        /**
+         * Whether to wake the screen with the menu key, the value is boolean.
+         * @hide
+         */
+        public static final String MENU_WAKE_SCREEN = "menu_wake_screen";
+
+        /**
+         * Whether to wake the screen with the assist key, the value is boolean.
+         * @hide
+         */
+        public static final String ASSIST_WAKE_SCREEN = "assist_wake_screen";
+
+        /**
+         * Whether to wake the screen with the app switch key, the value is boolean.
+         * @hide
+         */
+        public static final String APP_SWITCH_WAKE_SCREEN = "app_switch_wake_screen";
+
+        /**
+         * Volume rocker wake
+         * @hide
+         */
+        public static final String VOLUME_ROCKER_WAKE = "volume_rocker_wake";
+
         /** @hide */
         private static final Validator ENABLE_PEOPLE_LOOKUP_VALIDATOR = BOOLEAN_VALIDATOR;
 
@@ -4201,6 +4237,38 @@ public final class Settings {
 
         /** @hide */
         private static final Validator DIALER_OPENCNAM_AUTH_TOKEN_VALIDATOR = ANY_STRING_VALIDATOR;
+
+        /**
+         * Custom button brightness value for manual mode
+         *
+         * @hide
+         */
+        public static final String CUSTOM_BUTTON_BRIGHTNESS = "custom_button_brightness";
+
+        /**
+         * use same value for buttons as for screen (manual and auto mode)
+         *
+         * @hide
+         */
+        public static final String CUSTOM_BUTTON_USE_SCREEN_BRIGHTNESS = "custom_button_use_screen_brightness";
+
+        /**
+         * disable all button brightness (manual and auto mode)
+         *
+         * @hide
+         */
+        public static final String BUTTON_BACKLIGHT_ENABLE = "button_backlight_enable";
+
+        /**
+         * Timeout value for button lights. 0 = disabled
+         * @hide
+         */
+        public static final String BUTTON_BACKLIGHT_TIMEOUT = "button_backlight_timeout";
+
+        /**
+         * @hide
+         */
+        public static final String BUTTON_BACKLIGHT_ON_TOUCH_ONLY = "button_backlight_on_touch_only";
 
         /**
          * Wheter to show network traffic indicator in statusbar
@@ -4549,146 +4617,6 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
-         * Value for button brightness.
-         * This is an integer value in a range between 0 and 255.
-         *      0 = off
-         *    255 = default
-         *    255 = max
-         * @hide
-         */
-        public static final String BUTTON_BRIGHTNESS = "button_brightness";
-
-        /** @hide */
-        public static final Validator BUTTON_BRIGHTNESS_VALIDATOR =
-            new SettingsValidators.InclusiveIntegerRangeValidator(0, 255);
-
-        /**
-         * Whether user can enable/disable button brightness.
-         * <p>
-         * Type: int (0 for false, 1 for true)
-         * @hide
-         */
-        public static final String BUTTON_BRIGHTNESS_ENABLED = "button_brightness_enabled";
-
-        /** @hide */
-        private static final Validator BUTTON_BRIGHTNESS_ENABLED_VALIDATOR = ANY_INTEGER_VALIDATOR;
-
-        /** Action to perform when the home key is long-pressed.
-         * (Default can be configured via config_longPressOnHardwareHomeBehavior)
-         * 0 - Nothing
-         * 1 - Menu
-         * 2 - App-switch
-         * 3 - Search
-         * 4 - Voice search
-         * 5 - In-app search
-         * 6 - Launch Camera
-         * 7 - Laucnh last app
-         * @hide
-         */
-        public static final String KEY_HOME_LONG_PRESS_ACTION = "key_home_long_press_action";
-
-        /**
-         * Action to perform when the home key is double-tapped.
-         * (Default can be configured via config_doubleTapOnHardwareHomeBehavior)
-         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
-         */
-        public static final String KEY_HOME_DOUBLE_TAP_ACTION = "key_home_double_tap_action";
-
-
-        /**
-         * Action to perform when the menu key is long-pressed.
-         * (Default can be configured via config_longPressOnHardwareMenuBehavior)
-         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
-         */
-        public static final String KEY_MENU_LONG_PRESS_ACTION = "key_menu_long_press_action";
-
-        /**
-         * Action to perform when the menu key is double-tapped.
-         * (Default can be configured via config_doubleTapOnHardwareMenuBehavior)
-         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
-         */
-        public static final String KEY_MENU_DOUBLE_TAP_ACTION = "key_menu_double_tap_action";
-
-        /**
-         * Action to perform when the back key is long-pressed.
-         * (Default can be configured via config_longPressOnHardwareBackBehavior)
-         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
-         */
-        public static final String KEY_BACK_LONG_PRESS_ACTION = "key_back_long_press_action";
-
-        /**
-         * Action to perform when the back key is double-tapped.
-         * (Default can be configured via config_doubleTapOnHardwareBackBehavior)
-         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
-         */
-        public static final String KEY_BACK_DOUBLE_TAP_ACTION = "key_back_double_tap_action";
-
-        /**
-         * Action to perform when the assist key is long-pressed.
-         * (Default can be configured via config_longPressOnHardwareAssistBehavior)
-         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
-         */
-        public static final String KEY_ASSIST_LONG_PRESS_ACTION = "key_assist_long_press_action";
-
-        /**
-         * Action to perform when the assist key is double-tapped.
-         * (Default can be configured via config_doubleTapOnHardwareAssistBehavior)
-         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
-         */
-        public static final String KEY_ASSIST_DOUBLE_TAP_ACTION = "key_assist_double_tap_action";
-
-        /**
-         * Action to perform when the app switch key is long-pressed.
-         * (Default can be configured via config_longPressOnHardwareAppSwitchBehavior)
-         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
-         */
-        public static final String KEY_APP_SWITCH_LONG_PRESS_ACTION = "key_app_switch_long_press_action";
-
-        /**
-         * Action to perform when the app switch key is double-tapped.
-         * (Default can be configured via config_doubleTapOnHardwareAppSwitchBehavior)
-         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
-         */
-        public static final String KEY_APP_SWITCH_DOUBLE_TAP_ACTION = "key_app_switch_double_tap_action";
-
-        /**
-         * Action to perform when the app switch key is long-pressed.
-         * (Default can be configured via config_longPressOnHardwareCameraBehavior)
-         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
-         */
-        public static final String KEY_CAMERA_LONG_PRESS_ACTION = "key_camera_long_press_action";
-
-        /**
-         * Action to perform when the camera key is double-tapped.
-         * (Default can be configured via config_doubleTapOnHardwareCameraBehavior)
-         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
-         */
-        public static final String KEY_CAMERA_DOUBLE_TAP_ACTION = "key_camera_double_tap_action";
-
-        /** @hide */
-        public static final Validator KEY_VALIDATOR = new Validator() {
-            @Override
-            public boolean validate(String value) {
-                try {
-                    return Long.parseLong(value) >= 0;
-                } catch (NumberFormatException e) {
-                    return false;
-                }
-            }
-        };
-
-        /**
          * Three Finger Gesture from Oppo
          * @hide
          */
@@ -4735,17 +4663,6 @@ public final class Settings {
         public static final String SENSOR_BLOCK = "sensor_block";
 
         /**
-         * Whether user can enable/disable navigation bar.
-         * <p>
-         * Type: int (0 for false, 1 for true)
-         * @hide
-         */
-        public static final String NAVIGATION_BAR_ENABLED = "navigation_bar_enabled";
-
-        /** @hide */
-        private static final Validator NAVIGATION_BAR_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
-
-        /**
          * @hide
          */
         public static final String AICP_SHOW_BATTERY_IMAGE = "status_bar_show_battery_image";
@@ -4776,66 +4693,6 @@ public final class Settings {
                BOOLEAN_VALIDATOR;
 
         /**
-         * Whether to wake the screen with the home key, the value is boolean.
-         * 0 = 0ff, 1 = on
-         */
-        public static final String HOME_WAKE_SCREEN = "home_wake_screen";
-
-        /** @hide */
-        private static final Validator HOME_WAKE_SCREEN_VALIDATOR =
-                BOOLEAN_VALIDATOR;
-
-        /**
-         * Whether to wake the screen with the assist key, the value is boolean.
-         * 0 = 0ff, 1 = on
-         */
-        public static final String ASSIST_WAKE_SCREEN = "assist_wake_screen";
-
-        /** @hide */
-        private static final Validator ASSIST_WAKE_SCREEN_VALIDATOR =
-                BOOLEAN_VALIDATOR;
-
-        /**
-         * Whether to wake the screen with the app switch key, the value is boolean.
-         * 0 = 0ff, 1 = on
-         */
-        public static final String APP_SWITCH_WAKE_SCREEN = "app_switch_wake_screen";
-
-        /** @hide */
-        private static final Validator APP_SWITCH_WAKE_SCREEN_VALIDATOR =
-                BOOLEAN_VALIDATOR;
-
-        /**
-         * Whether to wake the screen with the camera key half-press.
-         * 0 = 0ff, 1 = on
-         */
-        public static final String CAMERA_WAKE_SCREEN = "camera_wake_screen";
-
-        /** @hide */
-        private static final Validator CAMERA_WAKE_SCREEN_VALIDATOR =
-                BOOLEAN_VALIDATOR;
-
-        /**
-         * Whether to wake the screen with the back key, the value is boolean.
-         * 0 = 0ff, 1 = on
-         */
-        public static final String BACK_WAKE_SCREEN = "back_wake_screen";
-
-        /** @hide */
-        private static final Validator BACK_WAKE_SCREEN_VALIDATOR =
-                BOOLEAN_VALIDATOR;
-
-        /**
-         * Whether to wake the screen with the menu key, the value is boolean.
-         * 0 = 0ff, 1 = on
-         */
-        public static final String MENU_WAKE_SCREEN = "menu_wake_screen";
-
-        /** @hide */
-        private static final Validator MENU_WAKE_SCREEN_VALIDATOR =
-                BOOLEAN_VALIDATOR;
-
-        /**
           * Volume keys control cursor in text fields (default is 0)
           * 0 - Disabled
           * 1 - Volume up/down moves cursor left/right
@@ -4847,16 +4704,6 @@ public final class Settings {
         /** @hide */
         private static final Validator VOLUME_KEY_CURSOR_CONTROL_VALIDATOR =
                 new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
-
-        /**
-         * Whether to wake the screen with the volume keys, the value is boolean.
-         * 0 = 0ff, 1 = on
-         */
-        public static final String VOLUME_WAKE_SCREEN = "volume_wake_screen";
-
-        /** @hide */
-        private static final Validator VOLUME_WAKE_SCREEN_VALIDATOR =
-                BOOLEAN_VALIDATOR;
 
         /**
          * Activate torchlight when power button is
@@ -4901,16 +4748,6 @@ public final class Settings {
 
         /** @hide */
         private static final Validator VOLUME_KEYS_CONTROL_RING_TONE_VALIDATOR =
-               BOOLEAN_VALIDATOR;
-
-        /** Whether to skip music track with volume rocker
-        /**
-        * @hide
-        */
-        public static final String VOLUME_BUTTON_MUSIC_CONTROL = "volume_button_music_control";
-
-        /** @hide */
-        private static final Validator VOLUME_BUTTON_MUSIC_CONTROL_VALIDATOR =
                BOOLEAN_VALIDATOR;
 
         /**
@@ -5202,6 +5039,16 @@ public final class Settings {
 
         /** @hide */
         private static final Validator RECENT_PANEL_BG_COLOR_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+        /** Whether to skip music track with volume rocker
+        /**
+        * @hide
+        */
+        public static final String VOLUME_BUTTON_MUSIC_CONTROL = "volume_button_music_control";
+
+        /** @hide */
+        private static final Validator VOLUME_BUTTON_MUSIC_CONTROL_VALIDATOR =
+               BOOLEAN_VALIDATOR;
 
         /**
          * Recent card background color
@@ -5939,6 +5786,29 @@ public final class Settings {
         private static final Validator TRANSPARENT_POWER_DIALOG_DIM_VALIDATOR =
                new SettingsValidators.InclusiveIntegerRangeValidator(0, 100);
 
+        /**
+         * Whether user can swap navigation lateral keys.
+         * <p>
+         * Type: int (0 for false, 1 for true)
+         * @hide
+         */
+        public static final String SWAP_NAVIGATION_KEYS = "swap_navigation_keys";
+
+         /**
+         * Whether to enable DOZE only when charging
+         * @hide
+         */
+        public static final String OMNI_DOZE_ON_CHARGE = "doze_on_charge";
+
+        private static final Validator OMNI_DOZE_ON_CHARGE_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
+         * hidden stting of the current atate of DOZE only when charging
+         * @hide
+         */
+        public static final String OMNI_DOZE_ON_CHARGE_NOW = "doze_on_charge_now";
+
         /***************************
          * AICP System Settings end
          ***************************/
@@ -6024,6 +5894,7 @@ public final class Settings {
             NOTIFICATION_VIBRATION_INTENSITY,
             HAPTIC_FEEDBACK_INTENSITY,
             DISPLAY_COLOR_MODE,
+            NOTIFICATION_LIGHT_PULSE,
             // AICP Settings
             AE_THEME,
             ENABLE_FORWARD_LOOKUP,
@@ -6069,19 +5940,11 @@ public final class Settings {
             THREE_FINGER_GESTURE,
             AICP_DOUBLE_TAP_SLEEP_GESTURE,
             AICP_DOUBLE_TAP_SLEEP_LOCKSCREEN,
-            HOME_WAKE_SCREEN,
-            ASSIST_WAKE_SCREEN,
-            BACK_WAKE_SCREEN,
-            VOLUME_WAKE_SCREEN,
-            MENU_WAKE_SCREEN,
-            APP_SWITCH_WAKE_SCREEN,
-            CAMERA_WAKE_SCREEN,
             VOLUME_KEY_CURSOR_CONTROL,
             TORCH_LONG_PRESS_POWER_GESTURE,
             TORCH_LONG_PRESS_POWER_TIMEOUT,
             SWAP_VOLUME_BUTTONS,
             VOLUME_KEYS_CONTROL_RING_TONE,
-            VOLUME_BUTTON_MUSIC_CONTROL,
             SCREENSHOT_SOUND,
             VOLUME_DIALOG_TIMEOUT,
             BLUETOOTH_SHOW_BATTERY,
@@ -6172,6 +6035,8 @@ public final class Settings {
             QS_RUNNING_SERVICES_TOGGLE,
             TRANSPARENT_POWER_MENU,
             TRANSPARENT_POWER_DIALOG_DIM,
+            VOLUME_BUTTON_MUSIC_CONTROL,
+            OMNI_DOZE_ON_CHARGE,
             // AICP Settings end
         };
 
@@ -6322,21 +6187,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(THEMING_ACCENT);
             PRIVATE_SETTINGS.add(AICP_USE_BOTTOM_GESTURE_NAVIGATION);
             PRIVATE_SETTINGS.add(THEMING_CORNERS);
-            PRIVATE_SETTINGS.add(NAVIGATION_BAR_ENABLED);
-            PRIVATE_SETTINGS.add(BUTTON_BRIGHTNESS);
-            PRIVATE_SETTINGS.add(BUTTON_BRIGHTNESS_ENABLED);
-            PRIVATE_SETTINGS.add(KEY_HOME_LONG_PRESS_ACTION);
-            PRIVATE_SETTINGS.add(KEY_HOME_DOUBLE_TAP_ACTION);
-            PRIVATE_SETTINGS.add(KEY_MENU_LONG_PRESS_ACTION);
-            PRIVATE_SETTINGS.add(KEY_MENU_DOUBLE_TAP_ACTION);
-            PRIVATE_SETTINGS.add(KEY_BACK_LONG_PRESS_ACTION);
-            PRIVATE_SETTINGS.add(KEY_BACK_DOUBLE_TAP_ACTION);
-            PRIVATE_SETTINGS.add(KEY_ASSIST_LONG_PRESS_ACTION);
-            PRIVATE_SETTINGS.add(KEY_ASSIST_DOUBLE_TAP_ACTION);
-            PRIVATE_SETTINGS.add(KEY_APP_SWITCH_LONG_PRESS_ACTION);
-            PRIVATE_SETTINGS.add(KEY_APP_SWITCH_DOUBLE_TAP_ACTION);
-            PRIVATE_SETTINGS.add(KEY_CAMERA_LONG_PRESS_ACTION);
-            PRIVATE_SETTINGS.add(KEY_CAMERA_DOUBLE_TAP_ACTION);
             PRIVATE_SETTINGS.add(AICP_SHOW_BATTERY_IMAGE);
             PRIVATE_SETTINGS.add(AICP_QS_LAYOUT_COLUMNS_LANDSCAPE);
             PRIVATE_SETTINGS.add(AICP_QS_LAYOUT_COLUMNS);
@@ -6351,19 +6201,11 @@ public final class Settings {
             PRIVATE_SETTINGS.add(THREE_FINGER_GESTURE);
             PRIVATE_SETTINGS.add(AICP_DOUBLE_TAP_SLEEP_GESTURE);
             PRIVATE_SETTINGS.add(AICP_DOUBLE_TAP_SLEEP_LOCKSCREEN);
-            PRIVATE_SETTINGS.add(HOME_WAKE_SCREEN);
-            PRIVATE_SETTINGS.add(ASSIST_WAKE_SCREEN);
-            PRIVATE_SETTINGS.add(BACK_WAKE_SCREEN);
-            PRIVATE_SETTINGS.add(VOLUME_WAKE_SCREEN);
-            PRIVATE_SETTINGS.add(MENU_WAKE_SCREEN);
-            PRIVATE_SETTINGS.add(APP_SWITCH_WAKE_SCREEN);
-            PRIVATE_SETTINGS.add(CAMERA_WAKE_SCREEN);
             PRIVATE_SETTINGS.add(VOLUME_KEY_CURSOR_CONTROL);
             PRIVATE_SETTINGS.add(TORCH_LONG_PRESS_POWER_GESTURE);
             PRIVATE_SETTINGS.add(TORCH_LONG_PRESS_POWER_TIMEOUT);
             PRIVATE_SETTINGS.add(SWAP_VOLUME_BUTTONS);
             PRIVATE_SETTINGS.add(VOLUME_KEYS_CONTROL_RING_TONE);
-            PRIVATE_SETTINGS.add(VOLUME_BUTTON_MUSIC_CONTROL);
             PRIVATE_SETTINGS.add(SCREENSHOT_SOUND);
             PRIVATE_SETTINGS.add(VOLUME_DIALOG_TIMEOUT);
             PRIVATE_SETTINGS.add(LOCKSCREEN_MEDIA_METADATA);
@@ -6455,6 +6297,13 @@ public final class Settings {
             PRIVATE_SETTINGS.add(QS_RUNNING_SERVICES_TOGGLE);
             PRIVATE_SETTINGS.add(TRANSPARENT_POWER_MENU);
             PRIVATE_SETTINGS.add(TRANSPARENT_POWER_DIALOG_DIM);
+            PRIVATE_SETTINGS.add(CUSTOM_BUTTON_BRIGHTNESS);
+            PRIVATE_SETTINGS.add(CUSTOM_BUTTON_USE_SCREEN_BRIGHTNESS);
+            PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_ENABLE);
+            PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_TIMEOUT);
+            PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_ON_TOUCH_ONLY);
+            PRIVATE_SETTINGS.add(VOLUME_BUTTON_MUSIC_CONTROL);
+            PRIVATE_SETTINGS.add(OMNI_DOZE_ON_CHARGE);
             // AICP Settings end
         }
 
@@ -6545,6 +6394,7 @@ public final class Settings {
             VALIDATORS.put(WIFI_STATIC_DNS1, WIFI_STATIC_DNS1_VALIDATOR);
             VALIDATORS.put(WIFI_STATIC_DNS2, WIFI_STATIC_DNS2_VALIDATOR);
             VALIDATORS.put(SHOW_BATTERY_PERCENT, SHOW_BATTERY_PERCENT_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_PULSE, BOOLEAN_VALIDATOR);
             // AICP Settings
             VALIDATORS.put(AE_THEME, AE_THEME_VALIDATOR);
             VALIDATORS.put(ENABLE_FORWARD_LOOKUP, ENABLE_FORWARD_LOOKUP_VALIDATOR);
@@ -6590,9 +6440,6 @@ public final class Settings {
             VALIDATORS.put(AICP_USE_BOTTOM_GESTURE_NAVIGATION,
                     AICP_USE_BOTTOM_GESTURE_NAVIGATION_VALIDATOR);
             VALIDATORS.put(THEMING_CORNERS, THEMING_CORNERS_VALIDATOR);
-            VALIDATORS.put(NAVIGATION_BAR_ENABLED, NAVIGATION_BAR_ENABLED_VALIDATOR);
-            VALIDATORS.put(BUTTON_BRIGHTNESS, BUTTON_BRIGHTNESS_VALIDATOR);
-            VALIDATORS.put(BUTTON_BRIGHTNESS_ENABLED, BUTTON_BRIGHTNESS_ENABLED_VALIDATOR);
             VALIDATORS.put(AICP_SHOW_BATTERY_IMAGE, AICP_SHOW_BATTERY_IMAGE_VALIDATOR);
             VALIDATORS.put(AICP_QS_LAYOUT_COLUMNS_LANDSCAPE,
                     AICP_QS_LAYOUT_COLUMNS_LANDSCAPE_VALIDATOR);
@@ -6612,13 +6459,6 @@ public final class Settings {
                     AICP_DOUBLE_TAP_SLEEP_GESTURE_VALIDATOR);
             VALIDATORS.put(AICP_DOUBLE_TAP_SLEEP_LOCKSCREEN,
                     AICP_DOUBLE_TAP_SLEEP_LOCKSCREEN_VALIDATOR);
-            VALIDATORS.put(HOME_WAKE_SCREEN, HOME_WAKE_SCREEN_VALIDATOR);
-            VALIDATORS.put(ASSIST_WAKE_SCREEN, ASSIST_WAKE_SCREEN_VALIDATOR);
-            VALIDATORS.put(BACK_WAKE_SCREEN, BACK_WAKE_SCREEN_VALIDATOR);
-            VALIDATORS.put(VOLUME_WAKE_SCREEN, VOLUME_WAKE_SCREEN_VALIDATOR);
-            VALIDATORS.put(MENU_WAKE_SCREEN, MENU_WAKE_SCREEN_VALIDATOR);
-            VALIDATORS.put(APP_SWITCH_WAKE_SCREEN, APP_SWITCH_WAKE_SCREEN_VALIDATOR);
-            VALIDATORS.put(CAMERA_WAKE_SCREEN, CAMERA_WAKE_SCREEN_VALIDATOR);
             VALIDATORS.put(VOLUME_KEY_CURSOR_CONTROL, VOLUME_KEY_CURSOR_CONTROL_VALIDATOR);
             VALIDATORS.put(TORCH_LONG_PRESS_POWER_GESTURE,
                     TORCH_LONG_PRESS_POWER_GESTURE_VALIDATOR);
@@ -6626,7 +6466,6 @@ public final class Settings {
                     TORCH_LONG_PRESS_POWER_TIMEOUT_VALIDATOR);
             VALIDATORS.put(SWAP_VOLUME_BUTTONS, SWAP_VOLUME_BUTTONS_VALIDATOR);
             VALIDATORS.put(VOLUME_KEYS_CONTROL_RING_TONE,VOLUME_KEYS_CONTROL_RING_TONE_VALIDATOR);
-            VALIDATORS.put(VOLUME_BUTTON_MUSIC_CONTROL,VOLUME_BUTTON_MUSIC_CONTROL_VALIDATOR);
             VALIDATORS.put(SCREENSHOT_SOUND,SCREENSHOT_SOUND_VALIDATOR);
             VALIDATORS.put(VOLUME_DIALOG_TIMEOUT,VOLUME_DIALOG_TIMEOUT_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_MEDIA_METADATA,LOCKSCREEN_MEDIA_METADATA_VALIDATOR);
@@ -6731,6 +6570,8 @@ public final class Settings {
             VALIDATORS.put(QS_RUNNING_SERVICES_TOGGLE,QS_RUNNING_SERVICES_TOGGLE_VALIDATOR);
             VALIDATORS.put(TRANSPARENT_POWER_MENU,TRANSPARENT_POWER_MENU_VALIDATOR);
             VALIDATORS.put(TRANSPARENT_POWER_DIALOG_DIM,TRANSPARENT_POWER_DIALOG_DIM_VALIDATOR);
+            VALIDATORS.put(VOLUME_BUTTON_MUSIC_CONTROL,VOLUME_BUTTON_MUSIC_CONTROL_VALIDATOR);
+            VALIDATORS.put(OMNI_DOZE_ON_CHARGE,OMNI_DOZE_ON_CHARGE_VALIDATOR);
             // AICP Settings end
         }
 
@@ -10041,6 +9882,12 @@ public final class Settings {
                 new SettingsValidators.DiscreteValueValidator(new String[]{"0", "1"});
 
         /**
+         * Disable hw buttons - actions, brightness, haptic feedback, overflow menu
+         * @hide
+         */
+        public static final String HARDWARE_KEYS_DISABLE = "hardware_keys_disable";
+
+        /**
          * Lower the display persistence while the system is in VR mode.
          *
          * @see PackageManager#FEATURE_VR_MODE_HIGH_PERFORMANCE
@@ -11044,6 +10891,8 @@ public final class Settings {
             VALIDATORS.put(STATUSBAR_CLOCK_DATE_STYLE, STATUSBAR_CLOCK_DATE_STYLE_VALIDATOR);
             VALIDATORS.put(STATUSBAR_CLOCK_DATE_FORMAT, STATUSBAR_CLOCK_DATE_FORMAT_VALIDATOR);
             VALIDATORS.put(STATUSBAR_CLOCK_DATE_POSITION, STATUSBAR_CLOCK_DATE_POSITION_VALIDATOR);
+            VALIDATORS.put(LOCK_SCREEN_ALLOW_PRIVATE_NOTIFICATIONS, BOOLEAN_VALIDATOR);
+            VALIDATORS.put(LOCK_SCREEN_SHOW_NOTIFICATIONS, BOOLEAN_VALIDATOR);
         }
 
         /**
@@ -15676,6 +15525,7 @@ public final class Settings {
          * Supported keys:
          * compatibility_wal_supported      (boolean)
          * wal_syncmode       (String)
+         * truncate_size      (int)
          *
          * @hide
          */
