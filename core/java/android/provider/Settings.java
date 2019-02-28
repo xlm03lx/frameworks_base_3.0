@@ -5809,6 +5809,24 @@ public final class Settings {
          */
         public static final String OMNI_DOZE_ON_CHARGE_NOW = "doze_on_charge_now";
 
+        /**
+         * Use EdgeGesture Service for system gestures in PhoneWindowManager
+         * @hide
+         */
+        public static final String USE_EDGE_SERVICE_FOR_GESTURES = "edge_service_for_gestures";
+
+        private static final Validator USE_EDGE_SERVICE_FOR_GESTURES_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
+         * @hide
+         */
+        public static final String SCREENRECORD_QUALITY_MODE = "screenrecord_quality_mode";
+
+        /** @hide */
+        private static final Validator SCREENRECORD_QUALITY_MODE_VALIDATOR =
+               new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+
         /***************************
          * AICP System Settings end
          ***************************/
@@ -6037,6 +6055,8 @@ public final class Settings {
             TRANSPARENT_POWER_DIALOG_DIM,
             VOLUME_BUTTON_MUSIC_CONTROL,
             OMNI_DOZE_ON_CHARGE,
+            USE_EDGE_SERVICE_FOR_GESTURES,
+            SCREENRECORD_QUALITY_MODE,
             // AICP Settings end
         };
 
@@ -6304,6 +6324,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_ON_TOUCH_ONLY);
             PRIVATE_SETTINGS.add(VOLUME_BUTTON_MUSIC_CONTROL);
             PRIVATE_SETTINGS.add(OMNI_DOZE_ON_CHARGE);
+            PRIVATE_SETTINGS.add(USE_EDGE_SERVICE_FOR_GESTURES);
+            PRIVATE_SETTINGS.add(SCREENRECORD_QUALITY_MODE);
             // AICP Settings end
         }
 
@@ -6572,6 +6594,8 @@ public final class Settings {
             VALIDATORS.put(TRANSPARENT_POWER_DIALOG_DIM,TRANSPARENT_POWER_DIALOG_DIM_VALIDATOR);
             VALIDATORS.put(VOLUME_BUTTON_MUSIC_CONTROL,VOLUME_BUTTON_MUSIC_CONTROL_VALIDATOR);
             VALIDATORS.put(OMNI_DOZE_ON_CHARGE,OMNI_DOZE_ON_CHARGE_VALIDATOR);
+            VALIDATORS.put(USE_EDGE_SERVICE_FOR_GESTURES,USE_EDGE_SERVICE_FOR_GESTURES_VALIDATOR);
+            VALIDATORS.put(SCREENRECORD_QUALITY_MODE,SCREENRECORD_QUALITY_MODE_VALIDATOR);
             // AICP Settings end
         }
 
@@ -10634,6 +10658,81 @@ public final class Settings {
          */
         public static final String SCREENSHOT_IN_POWER_MENU = "screenshot_in_power_menu";
 
+        /*
+         * Whether to show PIE controls on the screen.
+         * 0 = OFF
+         * 1 = ON
+         * Changes aspect depends on status bar visibility.
+         * @hide
+         */
+        public static final String PIE_STATE = "pie_state";
+        /** @hide */
+        private static final Validator PIE_STATE_VALIDATOR =
+               BOOLEAN_VALIDATOR;
+
+        /**
+         * PIE controls current location.
+         * Gravity.BOTTOM (default)
+         * Gravity.LEFT
+         * Gravity.RIGHT
+         * @hide
+         */
+        public static final String PIE_GRAVITY = "pie_gravity";
+
+        /**
+         * Whether to show battery circle in PIE controls.
+         * 0 = Text only
+         * 1 = Circle only
+         * 2 = Text and circle
+         * @hide
+         */
+        public static final String PIE_BATTERY_MODE = "pie_battery_mode";
+
+        /**
+         * PIE controls theme mode.
+         * 0 = AUTO
+         * 1 = WHITE
+         * 2 = DARK
+         * @hide
+         */
+        public static final String PIE_THEME_MODE = "pie_theme_mode";
+
+        /**
+         * PIE controls status indicator mode.
+         * 0 = BOTH
+         * 1 = WIFI ONLY
+         * 2 = MOBILE NETWORK ONLY
+         * 3 = NONE
+         * @hide
+         */
+        public static final String PIE_STATUS_INDICATOR = "pie_status_indicator";
+
+        /**
+         * Whether the Emergency button should be shown in the power menu.
+         * @hide
+         */
+        public static final String EMERGENCY_IN_POWER_MENU = "emergency_in_power_menu";
+
+        /**
+         * Setting to record how the look and feel of the system should be tweaked. This
+         * should be used in combination with magic.
+         *
+         * @see android.view.View#SYSTEM_DESIGN_FLAG_IMMERSIVE_NAV
+         * @see android.view.View#SYSTEM_DESIGN_FLAG_IMMERSIVE_STATUS
+         * @hide
+         */
+        public static final String SYSTEM_DESIGN_FLAGS = "system_design_flags";
+
+        /**
+         * Settings to reset on user request. They will fall back to their default value (0).
+         *
+         * @hide
+         */
+        public static final String[] SETTINGS_TO_RESET = {
+            PIE_STATE,
+            PIE_GRAVITY
+        };
+
         /**
          * This are the settings to be backed up.
          *
@@ -10736,6 +10835,8 @@ public final class Settings {
             VOLUME_HUSH_GESTURE,
             MANUAL_RINGER_TOGGLE_COUNT,
             HUSH_GESTURE_USED,
+            PIE_STATE,
+            EMERGENCY_IN_POWER_MENU,
         };
 
         /**
@@ -10893,6 +10994,8 @@ public final class Settings {
             VALIDATORS.put(STATUSBAR_CLOCK_DATE_POSITION, STATUSBAR_CLOCK_DATE_POSITION_VALIDATOR);
             VALIDATORS.put(LOCK_SCREEN_ALLOW_PRIVATE_NOTIFICATIONS, BOOLEAN_VALIDATOR);
             VALIDATORS.put(LOCK_SCREEN_SHOW_NOTIFICATIONS, BOOLEAN_VALIDATOR);
+            VALIDATORS.put(PIE_STATE,PIE_STATE_VALIDATOR);
+            VALIDATORS.put(EMERGENCY_IN_POWER_MENU, BOOLEAN_VALIDATOR);
         }
 
         /**

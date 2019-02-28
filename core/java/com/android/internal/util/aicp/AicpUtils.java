@@ -28,6 +28,7 @@ import android.os.Looper;
 import android.os.PowerManager;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.view.InputDevice;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -90,11 +91,19 @@ public class AicpUtils {
         }, 20);
     }
 
+    // Screen off
     public static void goToSleep(Context context) {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        if(pm != null) {
+        if (pm!= null && pm.isScreenOn()) {
             pm.goToSleep(SystemClock.uptimeMillis());
         }
+    }
+
+    // Screen on
+    public static void switchScreenOn(Context context) {
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (pm == null) return;
+        pm.wakeUp(SystemClock.uptimeMillis(), "com.android.systemui:CAMERA_GESTURE_PREVENT_LOCK");
     }
 
     // Check for Chinese language
@@ -135,5 +144,33 @@ public class AicpUtils {
         newColor[2] = empty[2] + ((full[2]-empty[2])*blendFactor);
         int newAlpha = (int) (emptyAlpha + ((fullAlpha-emptyAlpha)*blendFactor));
         return Color.HSVToColor(newAlpha, newColor);
+    }
+
+    // Check if device has a notch
+    public static boolean hasNotch(Context context) {
+        int result = 0;
+        int resid;
+        int resourceId = context.getResources().getIdentifier(
+                "status_bar_height", "dimen", "android");
+        resid = context.getResources().getIdentifier("config_fillMainBuiltInDisplayCutout",
+                "bool", "android");
+        if (resid > 0) {
+            return context.getResources().getBoolean(resid);
+        }
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        float px = 24 * (metrics.densityDpi / 160f);
+        return result > Math.round(px);
+    }
+
+    public static void takeScreenrecord(int mode) {
+        IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
+        try {
+            wm.screenRecordAction(mode);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

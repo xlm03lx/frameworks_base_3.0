@@ -249,6 +249,10 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+    <!-- Sync tile -->
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+
     <application
         android:name=".SystemUIApplication"
         android:persistent="true"
@@ -425,6 +429,21 @@
         <!-- Callback for deleting screenshot notification -->
         <receiver android:name=".screenshot.GlobalScreenshot$DeleteScreenshotReceiver"
             android:process=":screenshot"
+            android:exported="false" />
+
+        <!-- Springboard for launching the share activity -->
+        <receiver android:name=".aicp.screenrecord.GlobalScreenrecord$ShareReceiver"
+            android:process=":screenrecord"
+            android:exported="false" />
+
+        <!-- Callback for dismissing screenrecord notification after a share target is picked -->
+        <receiver android:name=".aicp.screenrecord.GlobalScreenrecord$TargetChosenReceiver"
+            android:process=":screenrecord"
+            android:exported="false" />
+
+        <!-- Callback for deleting screenrecord notification -->
+        <receiver android:name=".aicp.screenrecord.GlobalScreenrecord$DeleteScreenrecordReceiver"
+            android:process=":screenrecord"
             android:exported="false" />
 
         <!-- started from UsbDeviceSettingsManager -->
