@@ -4132,6 +4132,12 @@ public final class Settings {
         /** @hide */
         private static final Validator ENABLE_FORWARD_LOOKUP_VALIDATOR = BOOLEAN_VALIDATOR;
 
+	/**
+         * show the membar in recents
+         *  @hide
+         */
+        public static final String SYSTEMUI_RECENTS_MEM_DISPLAY = "systemui_recents_mem_display";
+
         /**
         * Enable looking up of phone numbers of people
         *
@@ -4406,6 +4412,24 @@ public final class Settings {
         /** @hide */
         private static final Validator STATUSBAR_BATTERY_BAR_ANIMATE_VALIDATOR =
                 BOOLEAN_VALIDATOR;
+
+        /** @hide */
+        public static final String AUDIO_PANEL_VIEW_MEDIA = "audio_panel_view_media";
+
+        /** @hide */
+        public static final String AUDIO_PANEL_VIEW_RINGER = "audio_panel_view_ringer";
+
+        /** @hide */
+        public static final String AUDIO_PANEL_VIEW_NOTIFICATION = "audio_panel_view_notification";
+
+        /** @hide */
+        public static final String AUDIO_PANEL_VIEW_ALARM = "audio_panel_view_alarm";
+
+        /** @hide */
+        public static final String AUDIO_PANEL_VIEW_VOICE = "audio_panel_view_voice";
+
+        /** @hide */
+        public static final String AUDIO_PANEL_VIEW_BT_SCO = "audio_panel_view_bt_sco";
 
         /**
          * @hide
@@ -5853,6 +5877,29 @@ public final class Settings {
         public static final String FONT_PACKAGES = "font_packages";
 
         /**
+         * show recents in grid style or android go style
+         * @hide
+         */
+        public static final String RECENTS_LAYOUT_STYLE = "recents_layout_style";
+
+        /**
+         * Which component to use for Recents UI
+         * 0 - Pie Recents (Quickstep)
+         * 1 - Oreo Recents (SystemUI)
+         * @hide
+         */
+        public static final String RECENTS_COMPONENT = "recents_component";
+
+        /** @hide */
+        public static final Validator RECENTS_COMPONENT_VALIDATOR =
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 1);
+
+        /*
+         * @hide
+         */
+        public static final String FULL_GESTURE_NAVBAR = "full_gesture_navbar";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -6057,6 +6104,7 @@ public final class Settings {
             OMNI_DOZE_ON_CHARGE,
             USE_EDGE_SERVICE_FOR_GESTURES,
             SCREENRECORD_QUALITY_MODE,
+            RECENTS_COMPONENT
             // AICP Settings end
         };
 
@@ -6326,6 +6374,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(OMNI_DOZE_ON_CHARGE);
             PRIVATE_SETTINGS.add(USE_EDGE_SERVICE_FOR_GESTURES);
             PRIVATE_SETTINGS.add(SCREENRECORD_QUALITY_MODE);
+            PRIVATE_SETTINGS.add(RECENTS_COMPONENT);
             // AICP Settings end
         }
 
@@ -6596,6 +6645,7 @@ public final class Settings {
             VALIDATORS.put(OMNI_DOZE_ON_CHARGE,OMNI_DOZE_ON_CHARGE_VALIDATOR);
             VALIDATORS.put(USE_EDGE_SERVICE_FOR_GESTURES,USE_EDGE_SERVICE_FOR_GESTURES_VALIDATOR);
             VALIDATORS.put(SCREENRECORD_QUALITY_MODE,SCREENRECORD_QUALITY_MODE_VALIDATOR);
+            VALIDATORS.put(RECENTS_COMPONENT,RECENTS_COMPONENT_VALIDATOR);
             // AICP Settings end
         }
 
