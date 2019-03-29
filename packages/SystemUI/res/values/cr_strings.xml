@@ -144,4 +144,7 @@
     <string name="quick_settings_sound_ring">Ring</string>
     <string name="quick_settings_sound_vibrate">Vibrate</string>
     <string name="quick_settings_sound_dnd">Do not disturb</string>
+
+    <!-- Restart SystemUI via Advanced Power Menu -->
+    <string name="global_action_restart_systemui">SystemUI</string>
 </resources>
