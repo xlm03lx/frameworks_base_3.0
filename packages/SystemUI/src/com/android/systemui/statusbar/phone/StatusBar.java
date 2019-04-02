@@ -1716,7 +1716,7 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
      * If the user switcher is simple then disable QS during setup because
      * the user intends to use the lock screen user switcher, QS in not needed.
      */
-    private void updateQsExpansionEnabled() {
+    public void updateQsExpansionEnabled() {
         mNotificationPanel.setQsExpansionEnabled(isDeviceProvisioned()
                 && (mUserSetup || mUserSwitcherController == null
                         || !mUserSwitcherController.isSimpleUserSwitcher())
@@ -1946,17 +1946,20 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
         boolean hideBecauseOccluded = mStatusBarKeyguardViewManager != null
                 && mStatusBarKeyguardViewManager.isOccluded();
 
-        final boolean keyguardVisible = (mState != StatusBarState.SHADE);
         final boolean hasArtwork = artworkDrawable != null;
         mColorExtractor.setHasBackdrop(hasArtwork);
         if (mScrimController != null) {
             mScrimController.setHasBackdrop(hasArtwork);
         }
 
-        if (keyguardVisible && mKeyguardShowingMedia &&
-                (artworkDrawable instanceof BitmapDrawable)) {
-            // always use current backdrop to color eq
-            mVisualizerView.setBitmap(((BitmapDrawable)artworkDrawable).getBitmap());
+        if (mVisualizerView != null) {
+            if (mKeyguardShowingMedia && artworkDrawable instanceof BitmapDrawable) {
+                // always use current backdrop to color eq
+                mVisualizerView.setBitmap(((BitmapDrawable)artworkDrawable).getBitmap());
+            } else {
+                // clear the color
+                mVisualizerView.setBitmap(null);
+            }
         }
 
         if ((hasArtwork || DEBUG_MEDIA_FAKE_ARTWORK)

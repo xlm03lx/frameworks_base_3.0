@@ -55,6 +55,7 @@ import android.widget.FrameLayout;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.keyguard.KeyguardStatusView;
+import com.android.keyguard.KeyguardUpdateMonitor;
 import com.android.systemui.DejankUtils;
 import com.android.systemui.Dependency;
 import com.android.systemui.Interpolators;
@@ -75,6 +76,7 @@ import com.android.systemui.statusbar.StatusBarState;
 import com.android.systemui.statusbar.notification.ActivityLaunchAnimator;
 import com.android.systemui.statusbar.notification.AnimatableProperty;
 import com.android.systemui.statusbar.notification.PropertyAnimator;
+import com.android.systemui.statusbar.policy.KeyguardMonitor;
 import com.android.systemui.statusbar.policy.KeyguardUserSwitcher;
 import com.android.systemui.statusbar.policy.OnHeadsUpChangedListener;
 import com.android.systemui.statusbar.stack.AnimationProperties;
@@ -115,6 +117,8 @@ public class NotificationPanelView extends PanelView implements
             "system:" + Settings.System.QS_SMART_PULLDOWN;
     private static final String DOUBLE_TAP_SLEEP_LOCKSCREEN =
             "system:" + Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN;
+    private static final String LOCKSCREEN_ENABLE_QS =
+            "global:" + Settings.Global.LOCKSCREEN_ENABLE_QS;
 
     private static final Rect mDummyDirtyRect = new Rect(0, 0, 1, 1);
 
@@ -244,6 +248,10 @@ public class NotificationPanelView extends PanelView implements
     private FalsingManager mFalsingManager;
     private String mLastCameraLaunchSource = KeyguardBottomAreaView.CAMERA_LAUNCH_SOURCE_AFFORDANCE;
 
+    private final Callback mCallback = new Callback();
+    private final KeyguardMonitor mKeyguardMonitor;
+    private boolean mStatusBarAllowedOnSecureKeyguard;
+
     private Runnable mHeadsUpExistenceChangedRunnable = new Runnable() {
         @Override
         public void run() {
@@ -336,6 +344,8 @@ public class NotificationPanelView extends PanelView implements
                 return true;
             }
         });
+        mKeyguardMonitor = Dependency.get(KeyguardMonitor.class);
+        mKeyguardMonitor.addCallback(mCallback);
     }
 
     public void setStatusBar(StatusBar bar) {
@@ -377,6 +387,7 @@ public class NotificationPanelView extends PanelView implements
         tunerService.addTunable(this, DOUBLE_TAP_SLEEP_GESTURE);
         tunerService.addTunable(this, QS_SMART_PULLDOWN);
         tunerService.addTunable(this, DOUBLE_TAP_SLEEP_LOCKSCREEN);
+        tunerService.addTunable(this, LOCKSCREEN_ENABLE_QS);
     }
 
     @Override
@@ -402,6 +413,11 @@ public class NotificationPanelView extends PanelView implements
                 break;
             case DOUBLE_TAP_SLEEP_LOCKSCREEN:
                 mIsLockscreenDoubleTapEnabled = newValue == null || Integer.parseInt(newValue) == 1;
+                break;
+            case LOCKSCREEN_ENABLE_QS:
+                mStatusBarAllowedOnSecureKeyguard =
+                        newValue == null || Integer.parseInt(newValue) == 1;
+                mStatusBar.updateQsExpansionEnabled();
                 break;
             default:
                 break;
@@ -680,10 +696,23 @@ public class NotificationPanelView extends PanelView implements
         mAnimateNextPositionUpdate = true;
     }
 
+    private final class Callback implements KeyguardMonitor.Callback {
+        @Override
+        public void onKeyguardShowingChanged() {
+            mStatusBar.updateQsExpansionEnabled();
+        }
+    };
+
+    private boolean isQsEventBlocked() {
+        return !mStatusBarAllowedOnSecureKeyguard && mKeyguardMonitor.isSecure()
+            && mKeyguardMonitor.isShowing();
+    }
+
     public void setQsExpansionEnabled(boolean qsExpansionEnabled) {
-        mQsExpansionEnabled = qsExpansionEnabled;
+        mQsExpansionEnabled = qsExpansionEnabled && !isQsEventBlocked();
         if (mQs == null) return;
-        mQs.setHeaderClickable(qsExpansionEnabled);
+        mQs.setHeaderClickable(mQsExpansionEnabled);
+        mQs.setSecureExpandDisabled(!mQsExpansionEnabled);
     }
 
     @Override
@@ -1069,6 +1098,8 @@ public class NotificationPanelView extends PanelView implements
                 showQsOverride = true;
         }
 
+        if (isQsEventBlocked()) return false;
+
         return twoFingerDrag || showQsOverride || stylusButtonClickDrag || mouseButtonClickDrag;
     }
 
@@ -1248,6 +1279,7 @@ public class NotificationPanelView extends PanelView implements
         mKeyguardShowing = keyguardShowing;
         if (mQs != null) {
             mQs.setKeyguardShowing(mKeyguardShowing);
+            mQs.setSecureExpandDisabled(isQsEventBlocked());
         }
 
         if (oldState == StatusBarState.KEYGUARD
