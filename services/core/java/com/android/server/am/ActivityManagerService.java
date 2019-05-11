@@ -1105,6 +1105,11 @@ public class ActivityManagerService extends IActivityManager.Stub
         @Override
         protected boolean allowFilterResult(
                 BroadcastFilter filter, List<BroadcastFilter> dest) {
+            if (filter.receiverList.receiver == null) {
+                Slog.w(TAG, "  Receiver of filter's receiverList is null; packageName = "
+                        + filter.packageName);
+                return false;
+            }
             IBinder target = filter.receiverList.receiver.asBinder();
             for (int i = dest.size() - 1; i >= 0; i--) {
                 if (dest.get(i).receiverList.receiver.asBinder() == target) {
@@ -2476,7 +2481,7 @@ public class ActivityManagerService extends IActivityManager.Stub
                 synchronized (mPidsSelfLocked) {
                     for (int i = 0; i < mPidsSelfLocked.size(); i++) {
                         final ProcessRecord p = mPidsSelfLocked.valueAt(i);
-                        if (p.uid == uid) {
+                        if (p.uid == uid && p.thread != null) {
                             try {
                                 p.thread.notifyCleartextNetwork(firstPacket);
                             } catch (RemoteException ignored) {
