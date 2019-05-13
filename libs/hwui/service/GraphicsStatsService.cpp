@@ -127,7 +127,7 @@ bool GraphicsStatsService::parseFromFile(const std::string& path,
         return false;
     }
     void* addr = mmap(nullptr, sb.st_size, PROT_READ, MAP_SHARED, fd, 0);
-    if (!addr) {
+    if (addr == MAP_FAILED) {
         int err = errno;
         // The file not existing is normal for addToDump(), so only log if
         // we get an unexpected error
@@ -139,6 +139,7 @@ bool GraphicsStatsService::parseFromFile(const std::string& path,
     uint32_t file_version = *reinterpret_cast<uint32_t*>(addr);
     if (file_version != sCurrentFileVersion) {
         ALOGW("file_version mismatch! expected %d got %d", sCurrentFileVersion, file_version);
+        munmap(addr, sb.st_size);
         return false;
     }
 
@@ -150,6 +151,7 @@ bool GraphicsStatsService::parseFromFile(const std::string& path,
         ALOGW("Parse failed on '%s' error='%s'", path.c_str(),
               output->InitializationErrorString().c_str());
     }
+    munmap(addr, sb.st_size);
     return success;
 }
 
