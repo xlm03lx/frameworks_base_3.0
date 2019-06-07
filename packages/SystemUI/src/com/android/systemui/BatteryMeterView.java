@@ -412,11 +412,7 @@ public class BatteryMeterView extends LinearLayout implements
                 intensity, mLightModeBackgroundColor,mDarkModeBackgroundColor);
 
         if (!mUseWallpaperTextColors) {
-            mDrawable.setColors(mNonAdaptedForegroundColor, mNonAdaptedBackgroundColor);
-            mTextColor = DarkIconDispatcher.getTint(area, this, tint);
-            if (mBatteryPercentView != null) {
-                mBatteryPercentView.setTextColor(DarkIconDispatcher.getTint(area, this, tint));
-            }
+            updateColors(mNonAdaptedForegroundColor, mNonAdaptedBackgroundColor);
         }
     }
 
