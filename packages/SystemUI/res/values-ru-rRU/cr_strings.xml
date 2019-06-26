@@ -188,4 +188,12 @@
     <string name="text_clock_units_string_h_nineteen">Девятнадцать</string>
     <!-- OneHand mode QS tile -->
     <string name="qs_onehand_label">Управление одной рукой</string>
+    <!-- VPN icon -->
+    <string name="status_bar_vpn">VPN</string>
+    <!-- Free ram -->
+    <string name="recents_free_ram">Свободно ОЗУ: %1$d МБ</string>
+    <!-- Reboot/Recovery/PowerOff QS Tile -->
+    <string name="quick_settings_reboot_label">Перезагрузка</string>
+    <string name="quick_settings_reboot_recovery_label">Режим восстановления</string>
+    <string name="quick_settings_poweroff_label">Выключение</string>
 </resources>
