@@ -283,6 +283,8 @@ import android.content.IIntentReceiver;
 import android.content.IIntentSender;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.om.IOverlayManager;
+import android.content.om.OverlayInfo;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ApplicationInfo.HiddenApiEnforcementPolicy;
@@ -516,6 +518,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.android.internal.util.crdroid.GamingModeController;
 import com.android.internal.util.crdroid.cutout.CutoutFullscreenController;
 
 public class ActivityManagerService extends IActivityManager.Stub
@@ -2024,6 +2027,8 @@ public class ActivityManagerService extends IActivityManager.Stub
     private CutoutFullscreenController mCutoutFullscreenController;
 
     final boolean mAllowAppBroadcast;
+
+    private GamingModeController mGamingModeController;
 
     /**
      * Current global configuration information. Contains general settings for the entire system,
@@ -4595,6 +4600,12 @@ public class ActivityManagerService extends IActivityManager.Stub
                         app.info.dataDir, invokeWith, true,
                         new String[] {PROC_START_SEQ_IDENT + app.startSeq});
             }
+ 
+            if (mGamingModeController != null && mGamingModeController.isGamingModeEnabled() &&
+                    hostingType.equals("activity") && startResult != null) {
+                mGamingModeController.noteStarted(app.info.packageName);
+            }
+
             checkTime(startTime, "startProcess: returned from zygote!");
             return startResult;
         } finally {
@@ -13072,6 +13083,9 @@ public class ActivityManagerService extends IActivityManager.Stub
 
         // Force full screen for devices with cutout
         mCutoutFullscreenController = new CutoutFullscreenController(mContext);
+
+        // Gaming mode provider
+        mGamingModeController = new GamingModeController(mContext);
     }
 
     void startPersistentApps(int matchFlags) {
@@ -14852,6 +14866,34 @@ public class ActivityManagerService extends IActivityManager.Stub
         ((WindowManager)mContext.getSystemService(
                 Context.WINDOW_SERVICE)).addView(v, lp);
     }
+
+    public final void disableOverlays() {
+        try {
+            IOverlayManager iom = IOverlayManager.Stub.asInterface(
+                    ServiceManager.getService("overlay"));
+            if (iom == null) {
+                return;
+            }
+            Log.d(TAG, "Contacting the Overlay Manager Service for the list of enabled overlays");
+            Map<String, List<OverlayInfo>> allOverlays = iom.getAllOverlays(UserHandle.USER_SYSTEM);
+            if (allOverlays != null) {
+                Log.d(TAG, "The Overlay Manager Service provided the list of enabled overlays");
+                Set<String> set = allOverlays.keySet();
+                for (String targetPackageName : set) {
+                    for (OverlayInfo oi : allOverlays.get(targetPackageName)) {
+                        if (oi.isEnabled()) {
+                            iom.setEnabled(oi.packageName, false, UserHandle.USER_SYSTEM);
+                            Log.d(TAG, "Now disabling \'" + oi.packageName + "\'");
+                        }
+                    }
+                }
+            }
+        } catch (RemoteException re) {
+            re.printStackTrace();
+            Log.d(TAG, "RemoteException while trying to contact the Overlay Manager Service!");
+        }
+    }
+
 
     @Override
     public void noteWakeupAlarm(IIntentSender sender, WorkSource workSource, int sourceUid,
@@ -21617,6 +21659,9 @@ public class ActivityManagerService extends IActivityManager.Stub
                                         mAppWarnings.onPackageUninstalled(ssp);
                                         mCompatModePackages.handlePackageUninstalledLocked(ssp);
                                         mBatteryStatsService.notePackageUninstalled(ssp);
+                                        if (mGamingModeController != null) {
+                                             mGamingModeController.notePackageUninstalled(ssp);
+                                        }
                                     }
                                 } else {
                                     if (killProcess) {
@@ -25094,6 +25139,17 @@ public class ActivityManagerService extends IActivityManager.Stub
                 mBatteryStatsService.noteEvent(BatteryStats.HistoryItem.EVENT_TOP_START,
                         mCurResumedPackage, mCurResumedUid);
             }
+
+            if (mCurResumedPackage != null && mGamingModeController != null && mGamingModeController.isGamingModeEnabled()) {
+                if (mGamingModeController.topAppChanged(mCurResumedPackage) && !mGamingModeController.isGamingModeActivated()) {
+                    Settings.System.putInt(mContext.getContentResolver(),
+                        Settings.System.GAMING_MODE_ACTIVE, 1);
+                } else if (!mGamingModeController.topAppChanged(mCurResumedPackage) && 
+                        mGamingModeController.isGamingModeActivated()) {
+                    Settings.System.putInt(mContext.getContentResolver(),
+                        Settings.System.GAMING_MODE_ACTIVE, 0);
+                }
+           }
         }
         return act;
     }
