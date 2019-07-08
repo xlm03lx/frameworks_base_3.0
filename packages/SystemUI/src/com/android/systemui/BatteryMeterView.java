@@ -370,6 +370,8 @@ public class BatteryMeterView extends LinearLayout implements
             if (mBatteryPercentView == null) {
                 if (mBatteryPercentPosition) reloadImage();
                 mBatteryPercentView = loadPercentView();
+                if (mTextColor != 0) mBatteryPercentView.setTextColor(mTextColor);
+                updatePercentText();
                 addView(mBatteryPercentView,
                         new ViewGroup.LayoutParams(
                                 LayoutParams.WRAP_CONTENT,
