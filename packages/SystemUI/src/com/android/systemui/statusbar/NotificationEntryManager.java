@@ -137,6 +137,7 @@ public class NotificationEntryManager implements Dumpable, NotificationInflater.
     private String mTrackInfoSeparator;
 
     private boolean mSkipHeadsUp;
+    private boolean mLessBoringHeadsUp;
 
     /**
      * Notifications with keys in this set are not actually around anymore. We kept them around
@@ -144,6 +145,9 @@ public class NotificationEntryManager implements Dumpable, NotificationInflater.
      * what you replied and allows you to continue typing into it.
      */
     private final ArraySet<String> mKeysKeptForRemoteInput = new ArraySet<>();
+
+    // We need reference to status bar for notification ticker
+    private StatusBar mStatusBar;
 
 
     private final class NotificationClicker implements View.OnClickListener {
@@ -474,6 +478,10 @@ public class NotificationEntryManager implements Dumpable, NotificationInflater.
             mHeadsUpManager.showNotification(shadeEntry);
             // Mark as seen immediately
             setNotificationShown(shadeEntry.notification);
+        } else {
+            if (mStatusBar != null) {
+                mStatusBar.tick(shadeEntry.notification, true, false, null, null);
+            }
         }
         addNotificationViews(shadeEntry);
         mCallback.onNotificationAdded(shadeEntry);
@@ -934,10 +942,22 @@ public class NotificationEntryManager implements Dumpable, NotificationInflater.
             mListContainer.snapViewIfNeeded(entry.row);
         }
 
+        boolean isForCurrentUser = mPresenter.isNotificationForCurrentProfiles(notification);
         if (DEBUG) {
             // Is this for you?
-            boolean isForCurrentUser = mPresenter.isNotificationForCurrentProfiles(notification);
             Log.d(TAG, "notification is " + (isForCurrentUser ? "" : "not ") + "for you");
+        }
+        boolean updateTicker = n.tickerText != null
+                && !TextUtils.equals(n.tickerText,
+                entry.notification.getNotification().tickerText);
+        // Restart the ticker if it's still running
+        if (updateTicker && isForCurrentUser) {
+            if (mStatusBar != null) {
+                mStatusBar.haltTicker();
+                if (!shouldPeek) {
+                    mStatusBar.tick(notification, false, false, null, null);
+                }
+            }
         }
 
         mCallback.onNotificationUpdated(notification);
@@ -972,12 +992,24 @@ public class NotificationEntryManager implements Dumpable, NotificationInflater.
         mSkipHeadsUp = skipHeadsUp;
     }
 
+    public void setUseLessBoringHeadsUp(boolean lessBoring) {
+        mLessBoringHeadsUp = lessBoring;
+    }
+
     public boolean shouldSkipHeadsUp(StatusBarNotification sbn) {
-        boolean isImportantHeadsUp = false;
         String notificationPackageName = sbn.getPackageName().toLowerCase();
-        isImportantHeadsUp = notificationPackageName.contains("dialer") ||
+
+        // Gaming mode takes precedence since messaging headsup is intrusive
+        if (mSkipHeadsUp) {
+            boolean isNonInstrusive = notificationPackageName.contains("dialer") ||
                 notificationPackageName.contains("alarm");
-        return !mPresenter.isDozing() && mSkipHeadsUp && !isImportantHeadsUp;
+            return !mPresenter.isDozing() && mSkipHeadsUp && !isNonInstrusive;
+        }
+
+        boolean isLessBoring = notificationPackageName.contains("dialer") ||
+                notificationPackageName.contains("alarm") ||
+                notificationPackageName.contains("messaging");
+        return !mPresenter.isDozing() && mLessBoringHeadsUp && !isLessBoring;
     }
 
     protected boolean shouldPeek(NotificationData.Entry entry) {
@@ -986,7 +1018,7 @@ public class NotificationEntryManager implements Dumpable, NotificationInflater.
 
     public boolean shouldPeek(NotificationData.Entry entry, StatusBarNotification sbn) {
         if (!mUseHeadsUp || mPresenter.isDeviceInVrMode() || shouldSkipHeadsUp(sbn)) {
-            if (DEBUG) Log.d(TAG, "No peeking: no huns or vr mode or gaming mode");
+            if (DEBUG) Log.d(TAG, "No peeking: no huns or vr mode or gaming mode or boring apps");
             return false;
         }
 
@@ -1158,5 +1190,9 @@ public class NotificationEntryManager implements Dumpable, NotificationInflater.
          * @return true if the notification should be peeked
          */
         boolean shouldPeek(NotificationData.Entry entry, StatusBarNotification sbn);
+    }
+
+    public void setStatusBar(StatusBar statusBar) {
+        mStatusBar = statusBar;
     }
 }

@@ -45,6 +45,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
 import android.bluetooth.BluetoothHearingAid;
 import android.bluetooth.BluetoothProfile;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -716,6 +717,7 @@ public class AudioService extends IAudioService.Stub
     };
 
     private boolean mVisualizerLocked;
+    private int mLaunchPlayer;
 
     ///////////////////////////////////////////////////////////////////////////
     // Construction
@@ -740,6 +742,9 @@ public class AudioService extends IAudioService.Stub
 
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         mHasVibrator = mVibrator == null ? false : mVibrator.hasVibrator();
+
+        mLaunchPlayer = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.HEADSET_CONNECT_PLAYER, 0, UserHandle.USER_CURRENT);
 
         // Initialize volume
         int maxCallVolume = SystemProperties.getInt("ro.config.vc_call_vol_steps", -1);
@@ -3323,6 +3328,21 @@ public class AudioService extends IAudioService.Stub
         if (!checkAudioSettingsPermission("setSpeakerphoneOn()")) {
             return;
         }
+
+        if (mContext.checkCallingOrSelfPermission(
+                android.Manifest.permission.MODIFY_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            synchronized (mSetModeDeathHandlers) {
+                for (SetModeDeathHandler h : mSetModeDeathHandlers) {
+                    if (h.getMode() == AudioSystem.MODE_IN_CALL) {
+                        Log.w(TAG, "getMode is call, Permission Denial: setSpeakerphoneOn from pid="
+                                + Binder.getCallingPid() + ", uid=" + Binder.getCallingUid());
+                        return;
+                    }
+                }
+            }
+        }
+
         // for logging only
         final String eventSource = new StringBuilder("setSpeakerphoneOn(").append(on)
                 .append(") from u/pid:").append(Binder.getCallingUid()).append("/")
@@ -3859,6 +3879,24 @@ public class AudioService extends IAudioService.Stub
             for (int outDeviceType : outDeviceTypes) {
                 result |= handleDeviceConnection(isActive, outDeviceType, address, btDeviceName);
             }
+        }
+        switch (mLaunchPlayer) {
+            case 0:
+            case 1:
+                //do nothing
+                break;
+            case 2:
+            case 4:
+                //launch the player if bt headset is not a carkit
+                for (int outDeviceType : outDeviceTypes)
+                    if (outDeviceType != AudioSystem.DEVICE_OUT_BLUETOOTH_SCO_CARKIT)
+                        startMusicPlayer();
+                break;
+            case 3:
+            case 5:
+                //launch the player for all bt headsets
+                startMusicPlayer();
+                break;
         }
         // handleDeviceConnection() && result to make sure the method get executed
         result = handleDeviceConnection(isActive, inDevice, address, btDeviceName) && result;
@@ -5902,6 +5940,8 @@ public class AudioService extends IAudioService.Stub
                     mContentResolver, Settings.Global.ENCODED_SURROUND_OUTPUT_ENABLED_FORMATS);
             mContentResolver.registerContentObserver(Settings.Global.getUriFor(
                     Settings.Global.ENCODED_SURROUND_OUTPUT_ENABLED_FORMATS), false, this);
+            mContentResolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADSET_CONNECT_PLAYER), false, this);
         }
 
         @Override
@@ -5932,6 +5972,8 @@ public class AudioService extends IAudioService.Stub
                     updateStreamVolumeAlias(true, TAG);
                 }
             }
+            mLaunchPlayer = Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.HEADSET_CONNECT_PLAYER, 0, UserHandle.USER_CURRENT);
         }
 
         private void updateEncodedSurroundOutput() {
@@ -6392,9 +6434,17 @@ public class AudioService extends IAudioService.Stub
 
         if (device == AudioSystem.DEVICE_OUT_WIRED_HEADSET) {
             connType = AudioRoutesInfo.MAIN_HEADSET;
+            if ((mLaunchPlayer == 1 || mLaunchPlayer == 4 || mLaunchPlayer == 5)
+                    && state ==1) {
+                startMusicPlayer();
+            }
         } else if (device == AudioSystem.DEVICE_OUT_WIRED_HEADPHONE ||
                    device == AudioSystem.DEVICE_OUT_LINE) {
             connType = AudioRoutesInfo.MAIN_HEADPHONES;
+            if ((mLaunchPlayer == 1 || mLaunchPlayer == 4 || mLaunchPlayer == 5)
+                    && state ==1) {
+                startMusicPlayer();
+            }
         } else if (device == AudioSystem.DEVICE_OUT_HDMI ||
                 device == AudioSystem.DEVICE_OUT_HDMI_ARC) {
             connType = AudioRoutesInfo.MAIN_HDMI;
@@ -6470,6 +6520,20 @@ public class AudioService extends IAudioService.Stub
             ActivityManager.broadcastStickyIntent(intent, UserHandle.USER_ALL);
         } finally {
             Binder.restoreCallingIdentity(ident);
+        }
+    }
+
+    private void startMusicPlayer() {
+        TelecomManager tm = (TelecomManager) mContext.getSystemService(Context.TELECOM_SERVICE);
+        if (!tm.isInCall()) {
+            try {
+                Intent playerIntent = new Intent(Intent.ACTION_MAIN);
+                playerIntent.addCategory(Intent.CATEGORY_APP_MUSIC);
+                playerIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(playerIntent);
+            } catch (ActivityNotFoundException | IllegalArgumentException e) {
+                Log.w(TAG, "No music player Activity could be found");
+            }
         }
     }
 

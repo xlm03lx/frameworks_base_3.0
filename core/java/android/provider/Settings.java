@@ -5009,6 +5009,53 @@ public final class Settings {
         public static final String RECENTS_OMNI_SWITCH_ENABLED = "recents_omni_switch";
 
         /**
+         * Whether to show the notification ticker on the status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_SHOW_TICKER = "status_bar_show_ticker";
+
+        /**
+         * Ticker animation
+         * 0: Fade animation
+         * 1: Scrolling ticker
+         * @hide
+         */
+        public static final String STATUS_BAR_TICKER_ANIMATION_MODE =
+                "status_bar_ticker_animation_mode";
+
+        /**
+         * Status bar ticker duration in milliseconds.
+         * @hide
+         */
+        public static final String STATUS_BAR_TICKER_TICK_DURATION =
+                "status_bar_ticker_tick_duration";
+
+        /**
+         * Whether to display cross sign for a data disabled connection
+         * @hide
+         */
+        public static final String DATA_DISABLED_ICON = "data_disabled_icon";
+
+        /**
+         * Whether to show heads up only for alarm, dialer and messaging apps
+         * @hide
+         */
+        public static final String LESS_BORING_HEADS_UP = "less_boring_heads_up";
+
+        /**
+         * Whether to launch default music player when headset plugged in
+         * Whether to launch default music player when headset plugged in
+         * 0 = don't do anything (default)
+         * 1 = launch only on wired connection
+         * 2 = launch only on bt connection but no carkit
+         * 3 = launch only on bt connection
+         * 4 = launch on both connection types but no carkit
+         * 5 = launch on both connection types
+         * @hide
+         */
+        public static final String HEADSET_CONNECT_PLAYER = "headset_connect_player";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -9466,6 +9513,8 @@ public final class Settings {
             VOLUME_HUSH_GESTURE,
             MANUAL_RINGER_TOGGLE_COUNT,
             HUSH_GESTURE_USED,
+            LOCK_SCREEN_ALLOW_PRIVATE_NOTIFICATIONS,
+            LOCK_SCREEN_SHOW_NOTIFICATIONS,
             VOLUME_LINK_NOTIFICATION,
         };
 
@@ -12510,6 +12559,30 @@ public final class Settings {
          * @hide
          */
         public static final String KEEP_PROFILE_IN_BACKGROUND = "keep_profile_in_background";
+
+        /**
+         * Whether or not to use aggressive device idle constants and ignore motion.
+         * Type: int (0 for false, 1 for true)
+         * Default: 0
+         * @hide
+         */
+        public static final String AGGRESSIVE_IDLE_ENABLED = "aggressive_idle_enabled";
+
+        /**
+         * Whether or not to use aggressive app idle constants.
+         * Type: int (0 for false, 1 for true)
+         * Default: 0
+         * @hide
+         */
+        public static final String AGGRESSIVE_STANDBY_ENABLED = "aggressive_standby_enabled";
+
+        /**
+         * Flag to automatically enable Aggressive Idle and Standby with battery saver.
+         * Type: int (0 for false, 1 for true)
+         * Default: 0
+         * @hide
+         */
+        public static final String AGGRESSIVE_BATTERY_SAVER = "aggressive_battery_saver";
 
         /**
          * Get the key that retrieves a bluetooth headset's priority.

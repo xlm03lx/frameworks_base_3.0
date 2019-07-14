@@ -81,7 +81,6 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
-import android.os.DropBoxManager;
 import android.os.Environment;
 import android.os.GraphicsEnvironment;
 import android.os.Handler;
@@ -153,13 +152,10 @@ import com.android.org.conscrypt.OpenSSLSocketImpl;
 import com.android.org.conscrypt.TrustedCertificateStore;
 import com.android.server.am.MemInfoDumpProto;
 
-import dalvik.system.BaseDexClassLoader;
 import dalvik.system.CloseGuard;
 import dalvik.system.VMDebug;
 import dalvik.system.VMRuntime;
 
-import libcore.io.DropBox;
-import libcore.io.EventLogger;
 import libcore.io.IoUtils;
 import libcore.net.event.NetworkEventDispatcher;
 
@@ -5815,16 +5811,6 @@ public final class ActivityThread extends ClientTransactionHandler {
             ThreadedRenderer.setIsolatedProcess(true);
         }
 
-        // If we use profiles, setup the dex reporter to notify package manager
-        // of any relevant dex loads. The idle maintenance job will use the information
-        // reported to optimize the loaded dex files.
-        // Note that we only need one global reporter per app.
-        // Make sure we do this before calling onCreate so that we can capture the
-        // complete application startup.
-        if (SystemProperties.getBoolean("dalvik.vm.usejitprofiles", false)) {
-            BaseDexClassLoader.setReporter(DexLoadReporter.getInstance());
-        }
-
         // Install the Network Security Config Provider. This must happen before the application
         // code is loaded to prevent issues with instances of TLS objects being created before
         // the provider is installed.
@@ -6588,9 +6574,6 @@ public final class ActivityThread extends ClientTransactionHandler {
             }
         }
 
-        // add dropbox logging to libcore
-        DropBox.setReporter(new DropBoxReporter());
-
         ViewRootImpl.ConfigChangedCallback configChangedCallback
                 = (Configuration globalConfig) -> {
             synchronized (mResourcesManager) {
@@ -6642,38 +6625,6 @@ public final class ActivityThread extends ClientTransactionHandler {
         }
     }
 
-    private static class EventLoggingReporter implements EventLogger.Reporter {
-        @Override
-        public void report (int code, Object... list) {
-            EventLog.writeEvent(code, list);
-        }
-    }
-
-    private class DropBoxReporter implements DropBox.Reporter {
-
-        private DropBoxManager dropBox;
-
-        public DropBoxReporter() {}
-
-        @Override
-        public void addData(String tag, byte[] data, int flags) {
-            ensureInitialized();
-            dropBox.addData(tag, data, flags);
-        }
-
-        @Override
-        public void addText(String tag, String data) {
-            ensureInitialized();
-            dropBox.addText(tag, data);
-        }
-
-        private synchronized void ensureInitialized() {
-            if (dropBox == null) {
-                dropBox = (DropBoxManager) getSystemContext().getSystemService(Context.DROPBOX_SERVICE);
-            }
-        }
-    }
-
     public static void main(String[] args) {
         Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, "ActivityThreadMain");
 
@@ -6683,9 +6634,6 @@ public final class ActivityThread extends ClientTransactionHandler {
         CloseGuard.setEnabled(false);
 
         Environment.initForCurrentUser();
-
-        // Set the reporter for event logging in libcore
-        EventLogger.setReporter(new EventLoggingReporter());
 
         // Make sure TrustedCertificateStore looks in the right place for CA certificates
         final File configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());
