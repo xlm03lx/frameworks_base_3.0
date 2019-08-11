@@ -5003,6 +5003,12 @@ public final class Settings {
         public static final String GAMING_MODE_DYNAMIC_STATE = "gaming_mode_dynamic_state";
 
         /**
+         * Whether to disable ADB in gaming mode
+         * @hide
+         */
+        public static final String GAMING_MODE_ADB_TOGGLE = "gaming_mode_adb_toggle";
+
+        /**
          * Whether to show the notification ticker on the status bar
          * @hide
          */
