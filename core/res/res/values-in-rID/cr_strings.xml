@@ -17,43 +17,43 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Pocket Lock -->
-    <string name="pocket_lock_message_long_press">Long press power button to interact</string>
+    <string name="pocket_lock_message_long_press">Tekan lama tombol daya untuk menggunakan</string>
     <!-- AOKP custom system animations -->
-    <string name="animation_fade">Pudar</string>
-    <string name="animation_slide_right">Slide dalam kanan</string>
+    <string name="animation_fade">Memudar</string>
+    <string name="animation_slide_right">Geser ke kanan</string>
     <string name="animation_slide_left">Geser ke kiri</string>
-    <string name="animation_slide_right_no_fade">Geser ke kanan (tanpa pudar)</string>
-    <string name="animation_slide_left_no_fade">Geser ke kiri (tanpa pudar)</string>
+    <string name="animation_slide_right_no_fade">Geser ke kanan (Tanpa memudar)</string>
+    <string name="animation_slide_left_no_fade">Geser ke kiri (Tanpa memudar)</string>
     <string name="animation_slide_up">Geser ke bawah</string>
     <string name="animation_slide_down">Geser ke atas</string>
     <string name="animation_default">Standar</string>
     <string name="animation_translucent">Transparan</string>
-    <string name="animation_grow_shrink">Tumbuh di (atas)</string>
-    <string name="animation_grow_shrink_center">Tumbuh di (tengah)</string>
-    <string name="animation_grow_shrink_bottom">Tumbuh di (bawah)</string>
-    <string name="animation_grow_shrink_left">Tumbuh di (kiri)</string>
-    <string name="animation_grow_shrink_right">Tumbuh di (kanan)</string>
+    <string name="animation_grow_shrink">Timbul di (Atas)</string>
+    <string name="animation_grow_shrink_center">Timbul di (Tengah)</string>
+    <string name="animation_grow_shrink_bottom">Timbul di (Bawah)</string>
+    <string name="animation_grow_shrink_left">Timbul di (Kiri)</string>
+    <string name="animation_grow_shrink_right">Timbul di (Kanan)</string>
     <string name="animation_random">Acak</string>
-    <string name="action_null">Kosong</string>
+    <string name="action_null">Tidak ada</string>
     <string name="animation_ethans">Etans</string>
     <string name="animation_q">Gaya Q</string>
     <!-- SystemUI Restart -->
-    <string name="systemui_restart_title">Diperlukan memulai ulang sistemUI</string>
-    <string name="systemui_restart_message">Untuk melihat semua perubahan, diperlukannya memulai ulang SystemUI. mulai ulang sekarang?</string>
+    <string name="systemui_restart_title">Mulai ulang sistemUI diperlukan</string>
+    <string name="systemui_restart_message">Untuk membuat perubahan, mulai ulang sistemUI diperlukan. Mulai ulang sekarang?</string>
     <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permlab_toggleNavigationEditor">Mengontrol navigasi editor</string>
+    <string name="permlab_toggleNavigationEditor">Mengontrol editor bar navigasi</string>
     <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permdesc_toggleNavigationEditor">Mengizinkan aplikasi mengontrol editor bar navigasi.</string>
+    <string name="permdesc_toggleNavigationEditor">Mengizinkan aplikasi untuk mengontrol editor bar navigasi.</string>
     <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permlab_accessFontManager">mengakses pengelola font</string>
+    <string name="permlab_accessFontManager">akses pengelola gaya huruf</string>
     <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permdesc_accessFontManager">Izinkan aplikasi untuk melakukan akses ke pengelola huruf.</string>
+    <string name="permdesc_accessFontManager">Mengizinkan aplikasi untuk mengakses pengelola gaya huruf.</string>
     <!-- Informative text shown when the device is in One handed mode. It also explains how to exit the mode. -->
-    <string name="onehand_guide" xliff:restype="x-GENERIC/FULLSCREEN/TEXT">Ketuk area kosong untuk keluar dari mode satu tangan</string>
+    <string name="onehand_guide" xliff:restype="x-GENERIC/FULLSCREEN/TEXT">Ketuk pada area kosong untuk keluar dari mode satu tangan</string>
     <!-- Gaming mode -->
     <string name="notification_channel_gaming">Mode permainan</string>
     <string name="gaming_mode_notification_title">Mode permainan diaktifkan</string>
-    <string name="gaming_mode_notification_content">Tekan untuk mematikan mode Gaming</string>
-    <string name="gaming_mode_enabled_toast">Mode game dihidupkan</string>
-    <string name="gaming_mode_disabled_toast">Mode game dimatikan</string>
+    <string name="gaming_mode_notification_content">Ketuk disini untuk keluar dari mode permainan</string>
+    <string name="gaming_mode_enabled_toast">Mode permainan aktif</string>
+    <string name="gaming_mode_disabled_toast">Mode permainan nonaktif</string>
 </resources>

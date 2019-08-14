@@ -5056,6 +5056,18 @@ public final class Settings {
         public static final String RECENTS_OMNI_SWITCH_ENABLED = "recents_omni_switch";
 
         /**
+         * Show battery percentage when charging
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_TEXT_CHARGING = "status_bar_battery_text_charging";
+
+        /**
+         * Battery percentage position with respect to battery icon
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_TEXT_POSITION = "status_bar_battery_text_position";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
