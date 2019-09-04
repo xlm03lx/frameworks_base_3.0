@@ -255,4 +255,9 @@
     <string name="accessibility_quick_settings_gaming_mode_disabled">Gaming mode turned off.</string>
     <!-- Content description of the Gaming mode tile in quick settings when enabled (not shown on the screen). [CHAR LIMIT=NONE] -->
     <string name="accessibility_quick_settings_gaming_mode_enabled">Gaming mode turned on.</string>
+
+    <!-- Font Tile -->
+    <string name="quick_settings_font_label">Fonts</string>
+    <string name="quick_settings_font_detail_label">Select a font</string>
+    <string name="quick_settings_font_pangram" translatable="false">The quick brown fox jumps over the lazy dog</string>
 </resources>

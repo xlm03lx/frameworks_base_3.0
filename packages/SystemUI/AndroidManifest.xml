@@ -241,6 +241,9 @@
     <!-- Locale QS -->
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
+    <!-- Font tile -->
+    <uses-permission android:name="android.permission.ACCESS_FONT_MANAGER" />
+
     <application
         android:name=".SystemUIApplication"
         android:persistent="true"
@@ -283,6 +286,13 @@
 
         <!-- Called from PhoneWindowManager -->
         <receiver android:name=".screenshot.ScreenshotServiceErrorReceiver"
+            android:process=":screenshot"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.android.systemui.screenshot.SHOW_ERROR" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".screenshot.ScreenshotServiceCaptureErrorReceiver"
             android:process=":screenshot"
             android:exported="false">
             <intent-filter>
