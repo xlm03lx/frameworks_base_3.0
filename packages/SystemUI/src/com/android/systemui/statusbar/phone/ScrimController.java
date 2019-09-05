@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
+ * Copyright (C) 2019 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -106,7 +107,6 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, OnCo
     private static final float NOT_INITIALIZED = -1;
 
     private static final int SCRIM_DEFAULT_COLOR = Color.BLACK;     // Default scrim color
-    private static final int SCRIM_TRANSPARENT_COLOR = 0x00FFFFFF;  // Transparent scrim
 
     private ScrimState mState = ScrimState.UNINITIALIZED;
     private final Context mContext;
@@ -185,10 +185,10 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, OnCo
 
         mColorExtractor = Dependency.get(SysuiColorExtractor.class);
         mColorExtractor.addOnColorsChangedListener(this);
-        mLockColors = getDarkGradientColor(mColorExtractor.getColors(WallpaperManager.FLAG_LOCK,
-                ColorExtractor.TYPE_DARK, true));
-        mSystemColors = getDarkGradientColor(mColorExtractor.getColors(WallpaperManager.FLAG_SYSTEM,
-                ColorExtractor.TYPE_DARK, true));
+        mLockColors = getDarkGradientColor(WallpaperManager.FLAG_LOCK,
+                true /* ignoreVisibility */);
+        mSystemColors = getDarkGradientColor(WallpaperManager.FLAG_SYSTEM,
+                true /* ignoreVisibility */);
         mNeedsDrawableColorUpdate = true;
 
         final ScrimState[] states = ScrimState.values();
@@ -821,27 +821,26 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, OnCo
     @Override
     public void onColorsChanged(ColorExtractor colorExtractor, int which) {
         if ((which & WallpaperManager.FLAG_LOCK) != 0) {
-            mLockColors = getDarkGradientColor(mColorExtractor.getColors(WallpaperManager.FLAG_LOCK,
-                    ColorExtractor.TYPE_DARK, true));
+            mLockColors = getDarkGradientColor(WallpaperManager.FLAG_LOCK,
+                    true /* ignoreVisibility */);
             mNeedsDrawableColorUpdate = true;
             scheduleUpdate();
         }
         if ((which & WallpaperManager.FLAG_SYSTEM) != 0) {
-            mSystemColors = getDarkGradientColor(mColorExtractor.getColors(
-                    WallpaperManager.FLAG_SYSTEM, ColorExtractor.TYPE_DARK,
-                    mState != ScrimState.UNLOCKED));
+            mSystemColors = getDarkGradientColor(WallpaperManager.FLAG_SYSTEM,
+                    mState != ScrimState.UNLOCKED);
             mNeedsDrawableColorUpdate = true;
             scheduleUpdate();
         }
     }
 
-    private GradientColors getDarkGradientColor(GradientColors fromWallpaper) {
-        boolean textIsDark = fromWallpaper.supportsDarkText();
-        GradientColors colors = new GradientColors();
-        colors.setMainColor(textIsDark ? SCRIM_TRANSPARENT_COLOR : SCRIM_DEFAULT_COLOR);
-        colors.setSecondaryColor(textIsDark ? SCRIM_TRANSPARENT_COLOR : SCRIM_DEFAULT_COLOR);
-        colors.setSupportsDarkText(textIsDark);
-        return colors;
+    private GradientColors getDarkGradientColor(int flag, boolean ignoreVisibility) {
+        GradientColors fromWallpaper = mColorExtractor.getColors(flag, ColorExtractor.TYPE_DARK,
+                ignoreVisibility);
+        int color = fromWallpaper.supportsDarkText() ? Color.TRANSPARENT : SCRIM_DEFAULT_COLOR;
+        fromWallpaper.setMainColor(color);
+        fromWallpaper.setSecondaryColor(color);
+        return fromWallpaper;
     }
 
     @VisibleForTesting
