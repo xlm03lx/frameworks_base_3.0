@@ -5110,6 +5110,13 @@ public final class Settings {
         public static final String RECENTS_OMNI_SWITCH_ENABLED = "recents_omni_switch";
 
         /**
+         * @hide
+         */
+        public static final String DISPLAY_MODE = "display_mode";
+
+        private static final Validator DISPLAY_MODE_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5170,6 +5177,7 @@ public final class Settings {
             HAPTIC_FEEDBACK_INTENSITY,
             DISPLAY_COLOR_MODE,
             NOTIFICATION_LIGHT_PULSE,
+            DISPLAY_MODE,
         };
 
         /**
@@ -5286,6 +5294,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SHOW_BATTERY_PERCENT);
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
             PRIVATE_SETTINGS.add(RECENTS_OMNI_SWITCH_ENABLED);
+            PRIVATE_SETTINGS.add(DISPLAY_MODE);
         }
 
         /**
@@ -5381,6 +5390,7 @@ public final class Settings {
             VALIDATORS.put(STATUS_BAR_CLOCK_SECONDS, STATUS_BAR_CLOCK_SECONDS_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_CLOCK_DATE_DISPLAY, STATUS_BAR_CLOCK_DATE_DISPLAY_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_CLOCK_DATE_STYLE, STATUS_BAR_CLOCK_DATE_STYLE_VALIDATOR);
+            VALIDATORS.put(DISPLAY_MODE, DISPLAY_MODE_VALIDATOR);
         }
 
         /**
