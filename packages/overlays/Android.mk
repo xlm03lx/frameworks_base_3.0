@@ -33,6 +33,7 @@ LOCAL_REQUIRED_MODULES := \
 	FontSurferSourceOverlay \
 	FontGrandHotelSourceOverlay \
 	FontRedressedSourceOverlay \
+	FontKoruriSourceOverlay \
 	IconPackCircularAndroidOverlay \
 	IconPackCircularLauncherOverlay \
 	IconPackCircularSettingsOverlay \
