@@ -17,5 +17,5 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Headline / Body font koruri overlay -->
-    <string name="font_koruri_source_overlay" translatable="false">koruri</string>
+    <string name="font_koruri_source_overlay" translatable="false">Koruri</string>
 </resources>
