@@ -1102,17 +1102,6 @@ public class VolumeDialogImpl implements VolumeDialog, TunerService.Tunable {
         if (isActive) {
             row.slider.requestFocus();
         }
-        boolean useActiveColoring = isActive && row.slider.isEnabled();
-        final ColorStateList tint = useActiveColoring ? mActiveTint : mInactiveTint;
-        final int alpha = useActiveColoring ? mActiveAlpha : mInactiveAlpha;
-        if (tint == row.cachedTint) return;
-        row.slider.setProgressTintList(tint);
-        row.slider.setThumbTintList(tint);
-        row.slider.setProgressBackgroundTintList(tint);
-        row.slider.setAlpha(((float) alpha) / 255);
-        row.icon.setImageTintList(tint);
-        row.icon.setImageAlpha(alpha);
-        row.cachedTint = tint;
     }
 
     private void updateVolumeRowSliderH(VolumeRow row, boolean enable, int vlevel, boolean maxChanged) {
