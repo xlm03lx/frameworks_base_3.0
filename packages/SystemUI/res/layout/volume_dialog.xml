@@ -60,8 +60,9 @@
                 android:orientation="horizontal">
                     <!-- volume rows added and removed here! :-) -->
             </LinearLayout>
-    </LinearLayout>
    	 </FrameLayout>
+    </LinearLayout>
+
 
             <FrameLayout
             android:id="@+id/ringer"
