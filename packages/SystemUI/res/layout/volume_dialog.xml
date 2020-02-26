@@ -23,7 +23,7 @@
     android:background="@android:color/transparent"
     android:theme="@style/qs_theme">
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/volume_dialog"
         android:minWidth="@dimen/volume_dialog_panel_width"
         android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
                     <!-- volume rows added and removed here! :-) -->
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </FrameLayout>
             <FrameLayout
             android:id="@+id/ringer"
             android:layout_width="@dimen/volume_dialog_ringer_size"
@@ -88,7 +88,6 @@
                      android:layout_height="wrap_content"
                      android:layout_marginTop="6dp"/>
             <LinearLayout
-
                 android:id="@+id/expandable_indicator_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
