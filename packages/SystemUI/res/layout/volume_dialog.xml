@@ -39,7 +39,7 @@
             android:layout_marginBottom="@dimen/volume_dialog_spacer"
             android:translationZ="@dimen/volume_dialog_elevation"
             android:clipToPadding="false"
-            android:background="@drawable/rounded_bg_full">
+            android:background="@drawable/volume_dialog_ringer_bcg">
             <com.android.keyguard.AlphaOptimizedImageButton
                 android:id="@+id/ringer_icon"
                 style="@style/VolumeButtons"
@@ -64,7 +64,7 @@
             android:orientation="vertical"
             android:translationZ="@dimen/volume_dialog_elevation"
             android:clipToPadding="false"
-            android:background="@drawable/rounded_bg_full" >
+            android:background="@drawable/volume_dialog_background" >
             <LinearLayout
                 android:id="@+id/volume_dialog_rows"
                 android:layout_width="wrap_content"
