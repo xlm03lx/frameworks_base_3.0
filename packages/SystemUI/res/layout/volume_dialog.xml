@@ -61,7 +61,7 @@
                     <!-- volume rows added and removed here! :-) -->
             </LinearLayout>
         </LinearLayout>
-
+    </LinearLayout>
             <FrameLayout
             android:id="@+id/ringer"
             android:layout_width="@dimen/volume_dialog_ringer_size"
@@ -125,5 +125,4 @@
        	 	</LinearLayout>
             </FrameLayout>
 
-    </LinearLayout>
 </FrameLayout>
