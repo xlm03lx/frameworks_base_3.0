@@ -3,9 +3,9 @@
        android:shape="rectangle">
     <solid android:color="?android:attr/panelColorBackground" />
     <corners
-        android:bottomLeftRadius="@dimen/corner_size"
+        android:bottomLeftRadius="24dip"
         android:topLeftRadius="0dp"
-        android:bottomRightRadius="@dimen/corner_size"
+        android:bottomRightRadius="24dip"
         android:topRightRadius="0dp"
         />
 </shape>
