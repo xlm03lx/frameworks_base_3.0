@@ -38,6 +38,7 @@
                 android:layout_height="@dimen/volume_dialog_ringer_height"
                 android:gravity="right"
                 android:layout_gravity="right"
+                android:clipToPadding="false"              
                 android:layout_margin="@dimen/volume_dialog_ringer_spacing"
                 android:background="@drawable/volume_dialog_ringer_bcg">
              
