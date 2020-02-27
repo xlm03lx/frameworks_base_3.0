@@ -38,10 +38,9 @@
                 android:layout_height="@dimen/volume_dialog_ringer_height"
                 android:gravity="right"
                 android:layout_gravity="right"
-                android:clipToPadding="false"                     
                 android:layout_margin="@dimen/volume_dialog_ringer_spacing"
                 android:background="@drawable/volume_dialog_ringer_bcg">
-
+             
             <com.android.keyguard.AlphaOptimizedImageButton
                     android:id="@+id/ringer_icon"
                     style="@style/VolumeButtons"
@@ -49,9 +48,10 @@
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
                     android:padding="@dimen/volume_dialog_ringer_icon_padding"
-                    android:background="@drawable/ripple_drawable_20dp_transparent"
-                    android:tint="@color/accent_tint_color_selector"
-                    android:layout_gravity="center"
+                    android:background="@drawable/ripple_drawable_20dp"
+                    android:tint="@android:color/white"
+                    android:layout_gravity="center"                                        
+                    android:clipToPadding="false"                     
                     android:soundEffectsEnabled="false" />
 
             <include layout="@layout/volume_dnd_icon"
