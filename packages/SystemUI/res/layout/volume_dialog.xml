@@ -39,10 +39,8 @@
                 android:gravity="right"
                 android:layout_gravity="right"
                 android:clipToPadding="false" 
-                android:clipChildren="false"
                 android:layout_margin="@dimen/volume_dialog_ringer_spacing"
                 android:background="@drawable/volume_dialog_ringer_bcg">
-             
             <com.android.keyguard.AlphaOptimizedImageButton
                     android:id="@+id/ringer_icon"
                     style="@style/VolumeButtons"
