@@ -1002,7 +1002,6 @@ public final class ViewRootImpl implements ViewParent,
                 } catch (Exception e) {
                     Log.e(TAG, "Exception while executing onFrameDraw", e);
                 }
-            });
     }
 
     private void enableHardwareAcceleration(WindowManager.LayoutParams attrs) {
