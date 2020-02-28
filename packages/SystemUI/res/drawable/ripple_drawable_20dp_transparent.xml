@@ -12,4 +12,4 @@
 -->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:radius="20dp"
-    android:color="@android:color/transparent" />
+    android:color="?android:attr/colorAccent" />
