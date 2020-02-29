@@ -34,7 +34,7 @@
 
         <FrameLayout
                 android:id="@+id/ringer"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/volume_dialog_ringer_height"
                 android:layout_height="@dimen/volume_dialog_ringer_height"
                 android:translationZ="@dimen/volume_dialog_elevation"                     
                 android:clipToPadding="false" 
